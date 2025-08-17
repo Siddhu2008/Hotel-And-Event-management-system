@@ -1,144 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Register - Stitch Design</title>
+{% extends 'base.html' %}
+{% load widget_tweaks %}
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+{% block title %}Register | The Grand Retreat{% endblock %}
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700;900&display=swap" rel="stylesheet" />
+{% block content %}
+<style>
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 0; /* space for fixed navbar */
+  }
 
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #fff;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
-    }
-    .register-container {
-      max-width: 500px;
-      width: 100%;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-      background-color: #f8f9fa;
-    }
-    .form-label {
-      font-weight: 600;
-    }
-    .btn-register {
-      background-color: #007bff;
-      color: white;
-      font-weight: 600;
-    }
-    .btn-register:hover {
-      background-color: #0056b3;
-    }
-  </style>
-</head>
 
-<body>
-  <div class="register-container">
-    <h2 class="mb-4 text-center">Create an Account</h2>
 
-    <!-- Display non-field errors -->
-    {% if form.non_field_errors %}
-      <div class="alert alert-danger">
-        {% for error in form.non_field_errors %}
-          {{ error }}<br />
-        {% endfor %}
-      </div>
-    {% endif %}
+  .register-container {
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    background-color: #ffffff;
+    transition: all 0.3s ease;
+  }
 
-    <form method="post" novalidate>
-      {% csrf_token %}
+  .register-container:hover {
+    box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+  }
 
-      <!-- Username -->
+  .form-label {
+    font-weight: 600;
+  }
+
+  .btn-register {
+    background-color: #28a745;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .btn-register:hover {
+    background-color: #218838;
+  }
+
+  .text-danger {
+    font-size: 0.85rem;
+  }
+
+  .alert {
+    font-size: 0.9rem;
+    color: red;
+  }
+</style>
+
+
+<!-- Register Form -->
+<div class="register-container my-5">
+  <h2 class="mb-4 text-center">Create an Account</h2>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+    {% for field in form %}
       <div class="mb-3">
-        <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
-        {{ form.username }}
-        {% if form.username.errors %}
-          <div class="text-danger small">
-            {{ form.username.errors|striptags }}
-          </div>
+        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+        {{ field|add_class:"form-control" }}
+        {% if field.errors %}
+          <div class="text-danger">{{ field.errors|striptags }}</div>
         {% endif %}
       </div>
+    {% endfor %}
 
-      <!-- Email -->
-      <div class="mb-3">
-        <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
-        {{ form.email }}
-        {% if form.email.errors %}
-          <div class="text-danger small">
-            {{ form.email.errors|striptags }}
-          </div>
-        {% endif %}
-      </div>
+    <div class="d-grid mt-4">
+      <button type="submit" class="btn btn-register btn-lg rounded-pill">Register</button>
+    </div>
 
-      <!-- Gender -->
-      <div class="mb-3">
-        <label for="{{ form.gender.id_for_label }}" class="form-label">Gender</label>
-        {{ form.gender }}
-        {% if form.gender.errors %}
-          <div class="text-danger small">
-            {{ form.gender.errors|striptags }}
-          </div>
-        {% endif %}
-      </div>
-
-      <!-- Contact -->
-      <div class="mb-3">
-        <label for="{{ form.contact.id_for_label }}" class="form-label">Contact Number</label>
-        {{ form.contact }}
-        {% if form.contact.errors %}
-          <div class="text-danger small">
-            {{ form.contact.errors|striptags }}
-          </div>
-        {% endif %}
-      </div>
-
-      <!-- Password1 -->
-      <div class="mb-3">
-        <label for="{{ form.password1.id_for_label }}" class="form-label">Password</label>
-        {{ form.password1 }}
-        {% if form.password1.errors %}
-          <div class="text-danger small">
-            {{ form.password1.errors|striptags }}
-          </div>
-        {% endif %}
-      </div>
-
-      <!-- Password2 -->
-      <div class="mb-3">
-        <label for="{{ form.password2.id_for_label }}" class="form-label">Confirm Password</label>
-        {{ form.password2 }}
-        {% if form.password2.errors %}
-          <div class="text-danger small">
-            {{ form.password2.errors|striptags }}
-          </div>
-        {% endif %}
-      </div>
-
-      <!-- Submit Button -->
-      <div class="d-grid mt-4">
-        <button type="submit" class="btn btn-register btn-lg rounded-pill">Register</button>
-      </div>
-
-      <!-- Link to login -->
-      <p class="mt-3 text-center">
-        Already have an account?
-        <a href="{% url 'login' %}">Login here</a>
-      </p>
-    </form>
-  </div>
-
-  <!-- Bootstrap JS Bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+    <p class="mt-3 text-center">
+      Already have an account? <a href="{% url 'login' %}">Login here</a>
+    </p>
+  </form>
+</div>
+{% endblock %}

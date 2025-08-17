@@ -13,97 +13,81 @@
     <!-- AOS Animation CSS -->
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
     <style>
-        /* ... Place your CSS here ... */
+       body {
+        font-family: 'Open Sans', sans-serif;
+        background-color: #fff;
+        scroll-behavior: smooth;
+      }
+
+      h1, h2, h3, h4 {
+        font-family: 'Playfair Display', serif;
+      }
+
+      .navbar {
+        background: #787878;
+      }
+
+      .navbar-brand,
+      .nav-link,
+      .navbar-toggler-icon {
+        color: #0a0a0a !important;
+      }
+
+      .nav-link:hover {
+        color: #d4af37 !important;
+      }
+      .btn-gold { background-color: #d4af37; color: #000; font-weight: 600; border-radius: 50px; }
+  .btn-gold:hover { background-color: #b9982e; color: #fff; }
+  /* ... Place your CSS here ... */
     </style>
     {% block extra_head %}{% endblock %}
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top py-3">
-      <div class="container">
-        <a class="navbar-brand fw-bold" href="#">The Grand Retreat</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
-          <ul class="navbar-nav mb-2 mb-lg-0 align-items-center gap-3">
-            <li class="nav-item"><a class="nav-link" href="{% url 'room' %}">Rooms</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'dinish' %}">Dining</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'spa' %}">Spa</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'event' %}">Events</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'gallery' %}">Gallery</a></li>
-            <li class="nav-item">
-              <a class="btn btn-outline-primary btn-sm rounded-pill px-3" href="#" data-bs-toggle="modal" data-bs-target="#authModal" onclick="showTab('login')">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="btn btn-gold btn-sm rounded-pill px-3" href="#" data-bs-toggle="modal" data-bs-target="#authModal" onclick="showTab('register')">Register</a>
-            </li>
-        </ul>
-        </div>
-      </div>
-    </nav>
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top py-3">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="{% url 'home' %}">The Grand Retreat</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
+      <ul class="navbar-nav mb-2 mb-lg-0 align-items-center gap-3">
+        <li class="nav-item"><a class="nav-link" href="{% url 'room' %}">Rooms</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'dinish' %}">Dining</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'spa' %}">Spa</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'event' %}">Events</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">contact</a></li>
 
-      <!-- Login/Register Modal -->
-    <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content p-4">
-             <div class="d-flex justify-content-end">
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-          <ul class="nav nav-tabs justify-content-center mb-3" id="authTabs" role="tablist">
-            <li class="nav-item">
-              <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login-tab-pane" type="button">Login</button>
-            </li>
-            <li class="nav-item">
-              <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register-tab-pane" type="button">Register</button>
-            </li>
-          </ul>
-
-          <div class="tab-content">
-            <!-- Login Tab -->
-            <div class="tab-pane fade show active" id="login-tab-pane">
-              <h4 class="text-center text-gold">Welcome Back</h4>
-              <form>
-                <div class="mb-3">
-                  <label class="form-label">Email</label>
-                  <input type="email" class="form-control" placeholder="Enter email" required>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Password</label>
-                  <input type="password" class="form-control" placeholder="Enter password" required>
-                </div>
-                <button type="submit" class="btn btn-gold w-100 mt-3">Login</button>
-              </form>
-            </div>
-
-            <!-- Register Tab -->
-            <div class="tab-pane fade" id="register-tab-pane">
-              <h4 class="text-center text-gold">Create Account</h4>
-              <form>
-                <div class="mb-3">
-                  <label class="form-label">Full Name</label>
-                  <input type="text" class="form-control" placeholder="Enter full name" required>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Email</label>
-                  <input type="email" class="form-control" placeholder="Enter email" required>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Password</label>
-                  <input type="password" class="form-control" placeholder="Create password" required>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Confirm Password</label>
-                  <input type="password" class="form-control" placeholder="Repeat password" required>
-                </div>
-                <button type="submit" class="btn btn-gold w-100 mt-3">Register</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+        {% if user.is_authenticated %}
+          <!-- Profile Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-person-circle fs-5 me-1"></i> {{ user.username }}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+              <li><a class="dropdown-item" href="{% url 'profile' %}"><i class="bi bi-person"></i> Profile</a></li>
+              <li><a class="dropdown-item" href="{% url 'notifications' %}"><i class="bi bi-bell"></i> Notifications</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+            </ul>
+          </li>
+        {% else %}
+          <!-- Show Login & Register if not authenticated -->
+          <li class="nav-item">
+            <a class="btn btn-outline-primary btn-sm rounded-pill px-3" href="{% url 'login' %}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-gold btn-sm rounded-pill px-3" href="{% url 'register' %}">Register</a>
+          </li>
+        {% endif %}
+      </ul>
     </div>
+  </div>
+</nav>
 
+
+      
     <!-- Page Content -->
     {% block content %}
     

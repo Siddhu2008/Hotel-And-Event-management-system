@@ -309,29 +309,27 @@
 <section class="bg-light py-5" id="booking">
   <div class="container">
     <h2 class="text-center mb-4">Book Your Spa Appointment</h2>
-    <form class="col-md-8 mx-auto" data-aos="fade-up">
-      <div class="mb-3">
-        <label class="form-label">Full Name</label>
-        <input type="text" class="form-control form-input" placeholder="Enter your full name" required />
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Email Address</label>
-        <input type="email" class="form-control form-input" placeholder="Enter your email" required />
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Preferred Date</label>
-        <input type="date" class="form-control form-input" required />
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Select Treatment</label>
-        <select class="form-select">
-          <option>Aroma Therapy</option>
-          <option>Hydrating Facial</option>
-          <option>Detox Body Wrap</option>
-        </select>
-      </div>
-      <button type="submit" class="btn btn-gold w-100 mt-3">Confirm Appointment</button>
-    </form>
+    <form method="POST" action="{% url 'book_spa' %}" class="col-md-8 mx-auto" data-aos="fade-up">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label class="form-label">Preferred Date</label>
+    <input type="date" name="date" class="form-control form-input" required />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Preferred Time</label>
+    <input type="time" name="time" class="form-control form-input" required />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Select Treatment</label>
+    <select name="service" class="form-select" required>
+      {% for service in services %}
+        <option value="{{ service.name }}">{{ service.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <button type="submit" class="btn btn-gold w-100 mt-3">Confirm Appointment</button>
+</form>
+
   </div>
 </section>
 

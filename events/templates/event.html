@@ -1,222 +1,116 @@
 {% extends 'base.html' %}
 
-{% block title %}Rooms | The Grand Retreat{% endblock %}
+{% block title %}Events | The Grand Retreat{% endblock %}
 
 {% block content %}
 <style>
-    body {
-      font-family: 'Open Sans', sans-serif;
-      background-color: #f9f9f9;
-      scroll-behavior: smooth;
-    }
+   body { font-family: 'Open Sans', sans-serif; background-color: #f8f9fa; }
+  h1, h2, h3 { font-family: 'Playfair Display', serif; }
 
-    h1, h2 {
-      font-family: 'Playfair Display', serif;
-    }
+  .navbar { background-color: #000; }
+  .navbar-brand, .nav-link { color: #fff !important; }
+  .nav-link:hover { color: #d4af37 !important; }
 
-     .navbar {
-      background-color: #000;
-    }
+  .hero-section {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+    url('https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg') center/cover no-repeat;
+    color: #fff; padding: 100px 20px; text-align: center;
+  }
 
-    .navbar-brand,
-    .nav-link {
-      color: #fff !important;
-    }
+  .event-card img { height: 230px; object-fit: cover; border-radius: 15px 15px 0 0; }
+  .event-card { cursor: pointer; transition: transform 0.3s ease; }
+  .event-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+  .btn-gold { background-color: #d4af37; color: #000; border-radius: 50px; font-weight: 600; }
+  .btn-gold:hover { background-color: #b9982e; color: #fff; }
+  .modal-content { background-color: #1c1c1c; border-radius: 10px; color: white; }
+  .form-control { background-color: #2c2c2c; border: 1px solid #555; color: #fff; }
+  .form-control:focus { border-color: #d4af37; box-shadow: none; }
+</style>
 
-    .nav-link:hover {
-      color: #d4af37 !important;
-    }
-    .hero {
-      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-        url('hotelm1.avif') center/cover no-repeat;
-      color: #fff;
-      padding: 100px 20px;
-      text-align: center;
-    }
+<!-- Hero Section -->
+<section class="hero text-center text-white py-5" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('hotelm1.avif') center/cover no-repeat;">
+  <div class="container">
+    <h1 class="display-5 fw-bold">Host Your Event in Style</h1>
+    <p class="lead">Select your event below and book with ease</p>
+  </div>
+</section>
 
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    }
-
-    .btn-gold {
-      background-color: #d4af37;
-      color: #000;
-      font-weight: 600;
-      border-radius: 50px;
-    }
-
-    .btn-gold:hover {
-      background-color: #b9982e;
-      color: #fff;
-    }
-
-    #bookingFormSection {
-      display: none;
-      animation: fadeInUp 1s ease-in-out;
-    }
-      /* Modal Styling */
-      .modal-content {
-        background-color: #1c1c1c;
-        border-radius: 10px;
-        color: white;
-      }
-
-      .nav-tabs .nav-link.active {
-        background-color: transparent;
-        border: none;
-        color: #d4af37;
-        font-weight: bold;
-      }
-
-      .nav-tabs .nav-link {
-        color: #aaa;
-      }
-
-      .form-control {
-        background-color: #2c2c2c;
-        border: 1px solid #555;
-        color: #fff;
-      }
-
-      .form-control:focus {
-        border-color: #d4af37;
-        box-shadow: none;
-      }
-      .form-input{
-        background-color: #faf9f9;
-        border: 1px solid #555;
-        color: #050505;
-      }
-      .btn-gold {
-  background-color: #d4af37;
-  color: #000;
-  border: none;
-  font-weight: 600;
-}
-
-.btn-gold:hover {
-  background-color: #b9982e;
-  color: #fff;
-}
-
-.footer-link {
-  display: block;
-  color: #ccc;
-  margin-bottom: 0.5rem;
-  transition: all 0.3s ease;
-  text-decoration: none;
-}
-
-.footer-link:hover {
-  color: #d4af37;
-  padding-left: 5px;
-}
-
-    @keyframes fadeInUp {
-      0% {
-        opacity: 0;
-        transform: translateY(50px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container">
-      <h1 class="display-5 fw-bold">Host Your Event in Style</h1>
-      <p class="lead">Choose your event type below and book with ease</p>
-    </div>
-  </section>
-
-  <!-- Event Cards -->
-  <section class="container my-5">
-    <div class="row g-4" id="eventCards">
-      <!-- Event Type Cards -->
-      <div class="col-md-4" data-aos="fade-up">
-        <div class="card shadow-sm border-0 h-100 event-card" data-event="Wedding">
-          <img src="https://images.pexels.com/photos/169193/pexels-photo-169193.jpeg" class="card-img-top" alt="Wedding">
-          <div class="card-body">
-            <h5 class="card-title">Wedding</h5>
-            <p class="card-text text-muted">Make your special day unforgettable at The Grand Retreat.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-        <div class="card shadow-sm border-0 h-100 event-card" data-event="Corporate">
-          <img src="https://images.pexels.com/photos/265987/pexels-photo-265987.jpeg" class="card-img-top" alt="Corporate">
-          <div class="card-body">
-            <h5 class="card-title">Corporate</h5>
-            <p class="card-text text-muted">Host productive meetings and conferences with class.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-        <div class="card shadow-sm border-0 h-100 event-card" data-event="Birthday">
-          <img src="https://images.pexels.com/photos/265920/pexels-photo-265920.jpeg" class="card-img-top" alt="Birthday">
-          <div class="card-body">
-            <h5 class="card-title">Birthday Party</h5>
-            <p class="card-text text-muted">Celebrate your milestones with fun, food, and flair.</p>
-          </div>
+<!-- Event Cards -->
+<section class="container py-5">
+  <div class="row g-4">
+    {% for event in events %}
+    <div class="col-md-4">
+      <div class="card event-card" 
+           data-bs-toggle="modal" 
+           data-bs-target="#bookingModal"
+           data-event-id="{{ event.id }}"
+           data-event-name="{{ event.name }}"
+           data-event-date="{{ event.date }}"
+           data-event-time="{{ event.time }}"
+           data-event-price="{{ event.price }}">
+        {% if event.image %}
+          <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.name }}">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ event.name }}</h5>
+          <p class="card-text text-muted">{{ event.description }}</p>
+          <p class="text-muted">Date: {{ event.date }} | Time: {{ event.time }} | ₹{{ event.price }}</p>
         </div>
       </div>
     </div>
-  </section>
+    {% endfor %}
+  </div>
+</section>
 
-  <!-- Booking Form Section -->
-  <section class="container my-5" id="bookingFormSection">
-    <div class="card border-0 shadow p-4">
-      <h2 class="mb-4 text-center"><span id="selectedEvent">Book Event</span> Form</h2>
-      <form>
-        <div class="row g-3">
-          <div class="col-md-6">
-            <label for="name" class="form-label">Full Name</label>
-            <input type="text" class="form-control form-input" id="name" required>
+<!-- Booking Modal -->
+<div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-4">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="bookingModalLabel">Book Event</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="POST">
+        {% csrf_token %}
+        <div class="modal-body">
+          <input type="hidden" name="event_id" id="event_id">
+          <div class="mb-3">
+            <label class="form-label">Event Name</label>
+            <input type="text" id="event_name_display" class="form-control" readonly>
           </div>
-          <div class="col-md-6">
-            <label for="email" class="form-label">Email Address</label>
-            <input type="email" class="form-control form-input" id="email" required>
+          <div class="mb-3">
+            <label class="form-label">Event Date & Time</label>
+            <input type="text" id="event_datetime_display" class="form-control" readonly>
           </div>
-          <div class="col-md-6">
-            <label for="guests" class="form-label">No. of Guests</label>
-            <input type="number" class="form-control form-input" id="guests" required>
+          <div class="mb-3">
+            <label class="form-label">Number of Guests</label>
+            <input type="number" name="guests" class="form-control" min="1" required>
           </div>
-          <div class="col-md-6">
-            <label for="date" class="form-label">Event Date</label>
-            <input type="date" class="form-control form-input" id="date" required>
-          </div>
-          <div class="col-12">
-            <label for="notes" class="form-label">Additional Notes</label>
-            <textarea class="form-input form-control" id="notes" rows="3" placeholder="Optional details..."></textarea>
+          <div class="mb-3">
+            <label class="form-label">Additional Notes</label>
+            <textarea name="notes" class="form-control" rows="3" placeholder="Optional details..."></textarea>
           </div>
         </div>
-        <div class="text-center mt-4">
-          <button type="submit" class="btn btn-gold px-5 py-2">Submit Booking</button>
+        <div class="modal-footer border-0">
+          <button type="submit" class="btn btn-gold w-100">Confirm Booking</button>
         </div>
       </form>
     </div>
-  </section>
-  
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init();
+  </div>
+</div>
 
-    // Handle card click
-    document.querySelectorAll('.event-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const eventName = card.getAttribute('data-event');
-        document.getElementById('selectedEvent').innerText = eventName;
-        document.getElementById('bookingFormSection').style.display = 'block';
-        document.getElementById('bookingFormSection').scrollIntoView({ behavior: 'smooth' });
-      });
-    });
-  </script>
+<script>
+  var bookingModal = document.getElementById('bookingModal');
+  bookingModal.addEventListener('show.bs.modal', function (event) {
+    var button = event.relatedTarget;
+    var eventId = button.getAttribute('data-event-id');
+    var eventName = button.getAttribute('data-event-name');
+    var eventDate = button.getAttribute('data-event-date');
+    var eventTime = button.getAttribute('data-event-time');
+
+    document.getElementById('event_id').value = eventId;
+    document.getElementById('event_name_display').value = eventName;
+    document.getElementById('event_datetime_display').value = eventDate + " | " + eventTime;
+  });
+</script>
 {% endblock %}
