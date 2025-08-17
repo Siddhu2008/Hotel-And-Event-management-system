@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ room.name }} | The Grand Retreat{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-6">
+      <img src="{{ room.image.url }}" alt="{{ room.name }}" class="img-fluid rounded">
+    </div>
+    <div class="col-md-6">
+      <h2 class="fw-bold">{{ room.room_type }}</h2>
+      <p class="text-muted">{{ room.description }}</p>
+      <p><strong>Price:</strong> ₹{{ room.price_per_night }}</p>
+      <p><strong>room number:</strong> {{ room.room_number }} </p>
+
+      {% if room.is_available %}
+      <span class="badge bg-success mb-2">Available</span>
+      <button class="btn btn-gold w-100 book-btn" data-bs-toggle="modal" data-bs-target="#bookingModal"
+        data-room="{{ room.id }}" data-room-number="{{ room.room_number }}">
+        Book Now
+      </button>
+      {% else %}
+      <span class="badge bg-danger">Booked</span>
+      <button class="btn btn-secondary w-100" disabled>Unavailable</button>
+      {% endif %}
+    </div>
+  </div>
+  <!-- Booking Modal -->
+<div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 shadow">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="bookingModalLabel">Book Your Room</h5>
+        <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="">
+          {% csrf_token %}
+          <!-- Hidden field to store selected room id -->
+          <input type="hidden" name="room" id="room_id" />
+
+          <div class="mb-3">
+            <label class="form-label">Room Number</label>
+            <input type="text" id="room_number_display" class="form-control" readonly />
+          </div>
+
+          <div class="row mb-3">
+            <div class="col">
+              <label class="form-label">Check-in</label>
+              <input type="date" name="check_in" class="form-control" required />
+            </div>
+            <div class="col">
+              <label class="form-label">Check-out</label>
+              <input type="date" name="check_out" class="form-control" required />
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-gold w-100">Confirm Booking</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Script to fill modal with selected room -->
+<script>
+  document.querySelectorAll('.book-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      const roomId = this.dataset.room;
+      const roomNumber = this.dataset.roomNumber;
+
+      document.getElementById('room_id').value = roomId;
+      document.getElementById('room_number_display').value = roomNumber;
+    });
+  });
+</script>
+</div>
+{% endblock %}

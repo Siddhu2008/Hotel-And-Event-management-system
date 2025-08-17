@@ -39,6 +39,18 @@
       .btn-gold { background-color: #d4af37; color: #000; font-weight: 600; border-radius: 50px; }
   .btn-gold:hover { background-color: #b9982e; color: #fff; }
   /* ... Place your CSS here ... */
+  .footer-link {
+  display: block;
+  color: #ccc;
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  color: #d4af37;
+  padding-left: 5px;
+}
     </style>
     {% block extra_head %}{% endblock %}
 </head>
@@ -124,14 +136,12 @@
               <li><i class="bi bi-envelope text-gold"></i> info@grandretreat.com</li>
             </ul>
           </div>
-          <div class="col-lg-3">
-            <h6 class="text-uppercase text-gold fw-semibold">Newsletter</h6>
-            <p class="small">Subscribe for exclusive offers and luxury updates.</p>
-            <form class="d-flex">
-              <input type="email" class="form-control form-control-sm rounded-0 border-0 bg-light" placeholder="Your email" />
-              <button class="btn btn-gold btn-sm rounded-0 px-3" type="submit">Subscribe</button>
-            </form>
-          </div>
+         <div class="col-lg-3">
+  <h6 class="text-uppercase text-gold fw-semibold">Get in Touch</h6>
+  <p class="small">Have questions or need help planning your stay or event? We’re here for you.</p>
+  <a href="{% url 'contact' %}" class="btn btn-gold btn-sm rounded-0 px-3 mt-2">Contact Us</a>
+</div>
+
         </div>
         <hr class="mt-5" style="border-top: 1px solid rgba(255,255,255,0.1);" />
         <p class="text-center mt-3 small ">&copy; 2024 The Grand Retreat. All rights reserved.</p>

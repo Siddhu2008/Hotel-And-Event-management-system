@@ -4,323 +4,304 @@
 
 {% block content %}
 
-    <style>
-      body {
-        font-family: 'Open Sans', sans-serif;
-        background-color: #fff;
-        scroll-behavior: smooth;
-      }
+<style>
+  body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #fff;
+    scroll-behavior: smooth;
+  }
 
-      h1, h2, h3, h4 {
-        font-family: 'Playfair Display', serif;
-      }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: 'Playfair Display', serif;
+  }
 
-      
 
-      .hero {
-        background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.7)),
-          url('https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg') center/cover no-repeat;
-        color: #fff;
-        text-align: center;
-        padding: 160px 20px;
-      }
 
-      .btn-gold {
-        background-color: #d4af37;
-        color: #000;
-        font-weight: 600;
-        border-radius: 50px;
-        transition: all 0.3s ease;
-      }
+  .hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.7)),
+      url('https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg') center/cover no-repeat;
+    color: #fff;
+    text-align: center;
+    padding: 160px 20px;
+  }
 
-      .btn-gold:hover {
-        background-color: #c89b2b;
-        transform: scale(1.05);
-        color: #fff;
-      }
+  .btn-gold {
+    background-color: #d4af37;
+    color: #000;
+    font-weight: 600;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+  }
 
-      .feature-icon i {
-        font-size: 2rem;
-        color: #d4af37;
-      }
+  .btn-gold:hover {
+    background-color: #c89b2b;
+    transform: scale(1.05);
+    color: #fff;
+  }
 
-      .section-title {
-        font-size: 2.5rem;
-        font-weight: bold;
-        text-align: center;
-        margin-bottom: 2rem;
-        color: #403f3f;
-      }
+  .feature-icon i {
+    font-size: 2rem;
+    color: #d4af37;
+  }
 
-      .card {
-        border: none;
-        border-radius: 15px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
-      }
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #403f3f;
+  }
 
-      .card:hover {
-        transform: translateY(-5px);
-      }
-.text-gold {
-  color: #d4af37 !important;
-}
+  .card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
 
-.btn-gold {
-  background-color: #d4af37;
-  color: #000;
-  border: none;
-  font-weight: 600;
-}
+  .card:hover {
+    transform: translateY(-5px);
+  }
 
-.btn-gold:hover {
-  background-color: #b9982e;
-  color: #fff;
-}
+  .text-gold {
+    color: #d4af37 !important;
+  }
 
-.footer-link {
-  display: block;
-  color: #ccc;
-  margin-bottom: 0.5rem;
-  transition: all 0.3s ease;
-  text-decoration: none;
-}
+  .btn-gold {
+    background-color: #d4af37;
+    color: #000;
+    border: none;
+    font-weight: 600;
+  }
 
-.footer-link:hover {
-  color: #d4af37;
-  padding-left: 5px;
-}
-      /* Modal Styling */
-      .modal-content {
-        background-color: #403f3f;
-        border-radius: 10px;
-        color: white;
-      }
+  .btn-gold:hover {
+    background-color: #b9982e;
+    color: #fff;
+  }
 
-      .nav-tabs .nav-link.active {
-        background-color: transparent;
-        border: none;
-        color: #d4af37;
-        font-weight: bold;
-      }
+  .footer-link {
+    display: block;
+    color: #ccc;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
 
-      .nav-tabs .nav-link {
-        color: #aaa;
-      }
+  .footer-link:hover {
+    color: #d4af37;
+    padding-left: 5px;
+  }
 
-      .form-control {
-        background-color: #403f3f;
-        border: 1px solid #555;
-        color: #fff;
-      }
+  /* Modal Styling */
+  .modal-content {
+    background-color: #403f3f;
+    border-radius: 10px;
+    color: white;
+  }
 
-      .form-control:focus {
-        border-color: #d4af37;
-        box-shadow: none;
-      }
-    </style>
+  .nav-tabs .nav-link.active {
+    background-color: transparent;
+    border: none;
+    color: #d4af37;
+    font-weight: bold;
+  }
 
-    <!-- Hero -->
-    <header class="hero" data-aos="fade-in">
-      <h1 class="display-4 fw-bold">Experience Elegance & Comfort</h1>
-      <p class="lead">Your luxury stay begins here</p>
-      <div class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
-        <a href="{% url 'room' %}" class="btn btn-gold px-4 py-2">Book a Room</a>
-        <a href="{% url 'event' %}" class="btn btn-outline-light px-4 py-2"> Book a Event</a>
+  .nav-tabs .nav-link {
+    color: #aaa;
+  }
+
+  .form-control {
+    background-color: #403f3f;
+    border: 1px solid #555;
+    color: #fff;
+  }
+
+  .form-control:focus {
+    border-color: #d4af37;
+    box-shadow: none;
+  }
+</style>
+
+<!-- Hero -->
+<header class="hero" data-aos="fade-in">
+  <h1 class="display-4 fw-bold">Experience Elegance & Comfort</h1>
+  <p class="lead">Your luxury stay begins here</p>
+  <div class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
+    <a href="{% url 'room' %}" class="btn btn-gold px-4 py-2">Book a Room</a>
+    <a href="{% url 'event' %}" class="btn btn-outline-light px-4 py-2"> Book a Event</a>
+  </div>
+</header>
+
+
+<!-- Rooms Section -->
+<section id="rooms" class="bg-light mt-2">
+  <div class="container">
+    <h2 class="section-title">Our Rooms</h2>
+    <div class="row g-4">
+      {% for room in rooms %}
+     <a href="{% url 'room_detail' room.id %}" class="col-md-4 text-decoration-none text-dark" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:"1" }}00">
+  <div class="card border-0 shadow-sm">
+    <img src="{{ room.image.url }}" class="card-img-top" alt="{{ room.room_type }}" style="height: 200px; object-fit: cover;">
+    <div class="card-body">
+      <h5 class="card-title">{{ room.room_type }}</h5>
+      <p class="card-text text-muted">{{ room.description|truncatewords:15 }}</p>
+    </div>
+  </div>
+</a>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+
+<!-- Events Section -->
+<section id="event" class="bg-light mt-5">
+  <div class="container">
+    <h2 class="section-title">Our Events</h2>
+    <div class="row g-4">
+      {% for event in events %}
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'1' }}00">
+        <div class="card border-0 shadow-sm">
+          <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.name }}" height="200px">
+          <div class="card-body">
+            <h5 class="card-title">{{ event.name }}</h5>
+            <p class="card-text text-muted">{{ event.description|truncatewords:20 }}</p>
+          </div>
+        </div>
       </div>
-    </header>
+      {% endfor %}
+    </div>
 
- 
-      <!-- Rooms Section -->
-  <section id="rooms" class="bg-light mt-2">
-    <div class="container">
-      <h2 class="section-title">Our Rooms</h2>
-      <div class="row g-4">
-        <div class="col-md-4" data-aos="fade-up">
-          <div class="card border-0 shadow-sm">
-            <img src="hotelm1.avif" class="card-img-top" alt="Luxury Suite">
-            <div class="card-body">
-              <h5 class="card-title">Luxury Suite</h5>
-              <p class="card-text text-muted">Spacious comfort with elegant interior and private balcony view.</p>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="container py-5">
+  <h2 class="section-title">Our Signature Experiences</h2>
+  <div class="row g-4 text-center">
+    <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+      <div class="card p-4">
+        <div class="feature-icon mb-3"><i class="bi bi-cup-straw"></i></div>
+        <h5 class="fw-bold">Fine Dining</h5>
+        <p class="text-muted">Savor global flavors in an elegant atmosphere.</p>
+      </div>
+    </div>
+    <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+      <div class="card p-4">
+        <div class="feature-icon mb-3"><i class="bi bi-cup-straw"></i></div>
+        <h5 class="fw-bold">Luxury Spa</h5>
+        <p class="text-muted">Rejuvenate with world-class wellness treatments.</p>
+      </div>
+    </div>
+    <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+      <div class="card p-4">
+        <div class="feature-icon mb-3"><i class="bi bi-stars"></i></div>
+        <h5 class="fw-bold">5-Star Rooms</h5>
+        <p class="text-muted">Elegant interiors & heavenly sleep comfort.</p>
+      </div>
+    </div>
+    <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
+      <div class="card p-4">
+        <div class="feature-icon mb-3"><i class="bi bi-calendar-event"></i></div>
+        <h5 class="fw-bold">Private Events</h5>
+        <p class="text-muted">Celebrate milestones in unmatched grandeur.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="container py-5" data-aos="fade-up">
+  <div class="row align-items-center">
+    <div class="col-md-6">
+      <h2 class="fw-bold">About The Grand Retreat</h2>
+      <p class="text-muted">Located in the heart of serenity, The Grand Retreat is a destination where luxury meets
+        tranquility. From private butler services to spa indulgence, your stay is custom-tailored to perfection.</p>
+
+    </div>
+    <div class="col-md-6">
+      <img src="https://tse3.mm.bing.net/th/id/OIP.o22uDEaPma5J-FBzqUzAaAHaEo?pid=Api&P=0&h=180"
+        class="img-fluid rounded shadow" width="520px" />
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="bg-dark text-white text-center py-5" data-aos="fade-in">
+  <div class="container">
+    <h2 class="fw-bold">Book Your Luxurious Getaway Now</h2>
+    <p class="lead">Immerse yourself in refined living and majestic experiences.</p>
+    <a href="{% url 'room' %}" class="btn btn-gold mt-3 px-5 py-2">Book Now</a>
+    <a href="{% url 'event' %}" class="btn btn-outline-light mt-3 px-4 py-2"> Book a Event</a>
+  </div>
+</section>
+
+<section class="container py-5" data-aos="fade-up">
+  <h2 class="fw-bold text-center mb-4">Meet Our Team</h2>
+  <div class="row g-4 text-center">
+    <div class="col-md-4">
+      <img src="https://randomuser.me/api/portraits/men/36.jpg" class="rounded-circle mb-2" width="100" />
+      <h6 class="fw-bold">Raj Mehra</h6>
+      <small class="text-muted">General Manager</small>
+    </div>
+    <div class="col-md-4">
+      <img src="https://randomuser.me/api/portraits/women/52.jpg" class="rounded-circle mb-2" width="100" />
+      <h6 class="fw-bold">Aanya Kapoor</h6>
+      <small class="text-muted">Guest Relations</small>
+    </div>
+    <div class="col-md-4">
+      <img src="https://randomuser.me/api/portraits/men/75.jpg" class="rounded-circle mb-2" width="100" />
+      <h6 class="fw-bold">Dev Shah</h6>
+      <small class="text-muted">Executive Chef</small>
+    </div>
+  </div>
+</section>
+<!-- Testimonials -->
+<section class="container py-5">
+  <h2 class="fw-bold text-center mb-4">What Guests Say</h2>
+  <div class="row g-4">
+    <div class="col-md-6" data-aos="zoom-in" data-aos-delay="100">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-3">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Guest" class="testimonial-img me-3" />
+            <div>
+              <p class="mb-0 fw-semibold text-dark">Ethan Carter</p>
+              <small class="text-muted">3 months ago</small>
             </div>
           </div>
-        </div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-          <div class="card border-0 shadow-sm">
-            <img src="hotelm1.avif" class="card-img-top" alt="Deluxe Room">
-            <div class="card-body">
-              <h5 class="card-title">Deluxe Room</h5>
-              <p class="card-text text-muted">Modern decor and full-service amenities, perfect for leisure travelers.</p>
-            </div>
+          <div class="text-warning mb-2">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+              class="bi bi-star-fill"></i>
           </div>
-        </div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
-          <div class="card border-0 shadow-sm">
-            <img src="HE2.avif" class="card-img-top" alt="Executive Suite">
-            <div class="card-body">
-              <h5 class="card-title">Executive Suite</h5>
-              <p class="card-text text-muted">Premium facilities for business stays with workspace and privacy.</p>
-            </div>
-          </div>
+          <p class="text-dark">"Absolutely fantastic stay. The ambiance and hospitality were top-notch. Highly recommend
+            The Grand Retreat."</p>
         </div>
       </div>
     </div>
-  </section>
-
-  
-      <!-- Rooms Section -->
-  <section id="rooms" class="bg-light mt-5">
-    <div class="container">
-      <h2 class="section-title">Our Events</h2>
-      <div class="row g-4">
-        <div class="col-md-4" data-aos="fade-up">
-          <div class="card border-0 shadow-sm">
-            <img src="hotelm1.avif" class="card-img-top" alt="Luxury Suite">
-            <div class="card-body">
-              <h5 class="card-title">Luxury Suite</h5>
-              <p class="card-text text-muted">Spacious comfort with elegant interior and private balcony view.</p>
+    <div class="col-md-6" data-aos="zoom-in" data-aos-delay="200">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-3">
+            <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Guest" class="testimonial-img me-3" />
+            <div>
+              <p class="mb-0 fw-semibold text-dark">Olivia Davis</p>
+              <small class="text-muted">4 months ago</small>
             </div>
           </div>
-        </div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-          <div class="card border-0 shadow-sm">
-            <img src="hotelm1.avif" class="card-img-top" alt="Deluxe Room">
-            <div class="card-body">
-              <h5 class="card-title">Deluxe Room</h5>
-              <p class="card-text text-muted">Modern decor and full-service amenities, perfect for leisure travelers.</p>
-            </div>
+          <div class="text-warning mb-2">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+              class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
           </div>
-        </div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
-          <div class="card border-0 shadow-sm">
-            <img src="HE2.avif" class="card-img-top" alt="Executive Suite">
-            <div class="card-body">
-              <h5 class="card-title">Executive Suite</h5>
-              <p class="card-text text-muted">Premium facilities for business stays with workspace and privacy.</p>
-            </div>
-          </div>
+          <p class="text-dark">"A beautiful escape from the busy city. I loved the spa and the fine dining service was
+            amazing!"</p>
         </div>
       </div>
     </div>
-  </section>
-
-    <!-- Features -->
-    <section class="container py-5">
-      <h2 class="section-title">Our Signature Experiences</h2>
-      <div class="row g-4 text-center">
-        <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
-          <div class="card p-4">
-            <div class="feature-icon mb-3"><i class="bi bi-cup-straw"></i></div>
-            <h5 class="fw-bold">Fine Dining</h5>
-            <p class="text-muted">Savor global flavors in an elegant atmosphere.</p>
-          </div>
-        </div>
-        <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
-          <div class="card p-4">
-            <div class="feature-icon mb-3"><i class="bi bi-cup-straw"></i></div>
-            <h5 class="fw-bold">Luxury Spa</h5>
-            <p class="text-muted">Rejuvenate with world-class wellness treatments.</p>
-          </div>
-        </div>
-        <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
-          <div class="card p-4">
-            <div class="feature-icon mb-3"><i class="bi bi-stars"></i></div>
-            <h5 class="fw-bold">5-Star Rooms</h5>
-            <p class="text-muted">Elegant interiors & heavenly sleep comfort.</p>
-          </div>
-        </div>
-        <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
-          <div class="card p-4">
-            <div class="feature-icon mb-3"><i class="bi bi-calendar-event"></i></div>
-            <h5 class="fw-bold">Private Events</h5>
-            <p class="text-muted">Celebrate milestones in unmatched grandeur.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- About -->
-    <section class="container py-5" data-aos="fade-up">
-      <div class="row align-items-center">
-        <div class="col-md-6">
-          <h2 class="fw-bold">About The Grand Retreat</h2>
-          <p class="text-muted">Located in the heart of serenity, The Grand Retreat is a destination where luxury meets tranquility. From private butler services to spa indulgence, your stay is custom-tailored to perfection.</p>
-          <a href="#" class="btn btn-gold mt-3 px-4">Discover More</a>
-        </div>
-        <div class="col-md-6">
-          <img src="About.avif" class="img-fluid rounded shadow" />
-        </div>
-      </div>
-    </section>
-
-    <!-- Call to Action -->
-    <section class="bg-dark text-white text-center py-5" data-aos="fade-in">
-      <div class="container">
-        <h2 class="fw-bold">Book Your Luxurious Getaway Now</h2>
-        <p class="lead">Immerse yourself in refined living and majestic experiences.</p>
-        <a href="{% url 'room' %}" class="btn btn-gold mt-3 px-5 py-2">Book Now</a>
-         <a href="{% url 'event' %}" class="btn btn-outline-light mt-3 px-4 py-2"> Book a Event</a>
-      </div>
-    </section>
-
-     <section class="container py-5" data-aos="fade-up">
-        <h2 class="fw-bold text-center mb-4">Meet Our Team</h2>
-        <div class="row g-4 text-center">
-          <div class="col-md-4">
-            <img src="https://randomuser.me/api/portraits/men/36.jpg" class="rounded-circle mb-2" width="100" />
-            <h6 class="fw-bold">Raj Mehra</h6>
-            <small class="text-muted">General Manager</small>
-          </div>
-          <div class="col-md-4">
-            <img src="https://randomuser.me/api/portraits/women/52.jpg" class="rounded-circle mb-2" width="100" />
-            <h6 class="fw-bold">Aanya Kapoor</h6>
-            <small class="text-muted">Guest Relations</small>
-          </div>
-          <div class="col-md-4">
-            <img src="https://randomuser.me/api/portraits/men/75.jpg" class="rounded-circle mb-2" width="100" />
-            <h6 class="fw-bold">Dev Shah</h6>
-            <small class="text-muted">Executive Chef</small>
-          </div>
-        </div>
-      </section>
-      <!-- Testimonials -->
-    <section class="container py-5">
-      <h2 class="fw-bold text-center mb-4">What Guests Say</h2>
-      <div class="row g-4">
-        <div class="col-md-6" data-aos="zoom-in" data-aos-delay="100">
-          <div class="card border-0 shadow-sm">
-            <div class="card-body">
-              <div class="d-flex align-items-center mb-3">
-                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Guest" class="testimonial-img me-3" />
-                <div>
-                  <p class="mb-0 fw-semibold text-dark">Ethan Carter</p>
-                  <small class="text-muted">3 months ago</small>
-                </div>
-              </div>
-              <div class="text-warning mb-2">
-                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-              </div>
-              <p class="text-dark">"Absolutely fantastic stay. The ambiance and hospitality were top-notch. Highly recommend The Grand Retreat."</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6" data-aos="zoom-in" data-aos-delay="200">
-          <div class="card border-0 shadow-sm">
-            <div class="card-body">
-              <div class="d-flex align-items-center mb-3">
-                <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Guest" class="testimonial-img me-3" />
-                <div>
-                  <p class="mb-0 fw-semibold text-dark">Olivia Davis</p>
-                  <small class="text-muted">4 months ago</small>
-                </div>
-              </div>
-              <div class="text-warning mb-2">
-                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-              </div>
-              <p class="text-dark">"A beautiful escape from the busy city. I loved the spa and the fine dining service was amazing!"</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-   {% endblock %}
+  </div>
+</section>
+{% endblock %}

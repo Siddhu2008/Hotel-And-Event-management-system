@@ -141,7 +141,7 @@
   <h2 class="text-center mb-4">Our Signature Treatments</h2>
   <div class="row g-4">
     <div class="col-md-4" data-aos="fade-up">
-      <div class="card service-card">
+      <div class="card service-card" data-service="Aroma Therapy" onclick="selectService('Aroma Therapy')">
         <img src="https://images.pexels.com/photos/3997995/pexels-photo-3997995.jpeg" class="card-img-top" alt="Massage">
         <div class="card-body">
           <h5 class="card-title">Aroma Therapy</h5>
@@ -149,8 +149,9 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4" data-aos="fade-up" >
-      <div class="card service-card">
+
+    <div class="col-md-4" data-aos="fade-up">
+      <div class="card service-card" data-service="Hydrating Facial" onclick="selectService('Hydrating Facial')">
         <img src="https://images.pexels.com/photos/3571554/pexels-photo-3571554.jpeg" class="card-img-top" alt="Facial">
         <div class="card-body">
           <h5 class="card-title">Hydrating Facial</h5>
@@ -158,8 +159,9 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4" data-aos="fade-up" >
-      <div class="card service-card">
+
+    <div class="col-md-4" data-aos="fade-up">
+      <div class="card service-card" data-service="Detox Body Wrap" onclick="selectService('Detox Body Wrap')">
         <img src="https://images.pexels.com/photos/6621459/pexels-photo-6621459.jpeg" class="card-img-top" alt="Body Wrap">
         <div class="card-body">
           <h5 class="card-title">Detox Body Wrap</h5>
@@ -208,131 +210,110 @@
 
   <!-- Packages -->
   <section class="py-5 bg-light">
-    <div class="container">
-      <h2 class="text-center mb-5">Our Spa Packages</h2>
-      <div class="row g-4">
-        <div class="col-md-4" data-aos="fade-right">
-          <div class="card package-card p-4 text-center">
-            <h4>Relax & Rejuvenate</h4>
-            <p class="text-muted">₹3,000</p>
-            <ul class="list-unstyled small">
-              <li>60-min Aromatherapy</li>
-              <li>Steam & Sauna</li>
-              <li>Herbal Tea</li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-4" data-aos="fade-up">
-          <div class="card package-card p-4 text-center">
-            <h4>Luxury Retreat</h4>
-            <p class="text-muted">₹5,500</p>
-            <ul class="list-unstyled small">
-              <li>90-min Deep Tissue</li>
-              <li>Facial & Foot Massage</li>
-              <li>Champagne & Fruit Platter</li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-4" data-aos="fade-left">
-          <div class="card package-card p-4 text-center">
-            <h4>Couple's Escape</h4>
-            <p class="text-muted">₹8,000</p>
-            <ul class="list-unstyled small">
-              <li>Couple Massage</li>
-              <li>Jacuzzi Session</li>
-              <li>Candlelight Ambience</li>
-            </ul>
-          </div>
+  <div class="container">
+    <h2 class="text-center mb-5">Our Spa Packages</h2>
+    <div class="row g-4">
+      <div class="col-md-4" data-aos="fade-right">
+        <div class="card package-card p-4 text-center" onclick="selectService('Relax & Rejuvenate')">
+          <h4>Relax & Rejuvenate</h4>
+          <p class="text-muted">₹3,000</p>
+          <ul class="list-unstyled small">
+            <li>60-min Aromatherapy</li>
+            <li>Steam & Sauna</li>
+            <li>Herbal Tea</li>
+          </ul>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- FAQs -->
-  <section class="py-5 faq-section">
-    <div class="container">
-      <h2 class="text-center mb-5">Frequently Asked Questions</h2>
-      <div class="accordion" id="spaFAQ">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="faqOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne">
-              What should I wear to my appointment?
-            </button>
-          </h2>
-          <div id="faqCollapseOne" class="accordion-collapse collapse show">
-            <div class="accordion-body">
-              We recommend comfortable, loose-fitting clothes. Robes and slippers will be provided.
-            </div>
-          </div>
+      <div class="col-md-4" data-aos="fade-up">
+        <div class="card package-card p-4 text-center" onclick="selectService('Luxury Retreat')">
+          <h4>Luxury Retreat</h4>
+          <p class="text-muted">₹5,500</p>
+          <ul class="list-unstyled small">
+            <li>90-min Deep Tissue</li>
+            <li>Facial & Foot Massage</li>
+            <li>Champagne & Fruit Platter</li>
+          </ul>
         </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="faqTwo">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo">
-              How early should I arrive?
-            </button>
-          </h2>
-          <div id="faqCollapseTwo" class="accordion-collapse collapse">
-            <div class="accordion-body">
-              Please arrive at least 15 minutes before your scheduled appointment to relax and prepare.
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="faqThree">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree">
-              Can I cancel or reschedule?
-            </button>
-          </h2>
-          <div id="faqCollapseThree" class="accordion-collapse collapse">
-            <div class="accordion-body">
-              Yes, cancellations or rescheduling must be done at least 24 hours in advance.
-            </div>
-          </div>
+      </div>
+
+      <div class="col-md-4" data-aos="fade-left">
+        <div class="card package-card p-4 text-center" onclick="selectService(`Couple's Escape`)">
+          <h4>Couple's Escape</h4>
+          <p class="text-muted">₹8,000</p>
+          <ul class="list-unstyled small">
+            <li>Couple Massage</li>
+            <li>Jacuzzi Session</li>
+            <li>Candlelight Ambience</li>
+          </ul>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
 <!-- Booking Form -->
 <section class="bg-light py-5" id="booking">
   <div class="container">
     <h2 class="text-center mb-4">Book Your Spa Appointment</h2>
+    
+    {% if services %}
     <form method="POST" action="{% url 'book_spa' %}" class="col-md-8 mx-auto" data-aos="fade-up">
-  {% csrf_token %}
-  <div class="mb-3">
-    <label class="form-label">Preferred Date</label>
-    <input type="date" name="date" class="form-control form-input" required />
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Preferred Time</label>
-    <input type="time" name="time" class="form-control form-input" required />
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Select Treatment</label>
-    <select name="service" class="form-select" required>
-      {% for service in services %}
-        <option value="{{ service.name }}">{{ service.name }}</option>
-      {% endfor %}
-    </select>
-  </div>
-  <button type="submit" class="btn btn-gold w-100 mt-3">Confirm Appointment</button>
-</form>
+      {% csrf_token %}
+      <div class="mb-3">
+        <label class="form-label">Preferred Date</label>
+        <input type="date" name="date" class="form-control form-input" required />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Preferred Time</label>
+        <input type="time" name="time" class="form-control form-input" required />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Select Treatment</label>
+        <select name="service" class="form-select" required>
+          {% for service in services %}
+            <option value="{{ service.name }}">{{ service.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="btn btn-gold w-100 mt-3">Confirm Appointment</button>
+    </form>
+    {% else %}
+      <p class="text-center text-dark">No spa services available at the moment.</p>
+    {% endif %}
 
+    {% if messages %}
+      <div class="mt-3">
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
   </div>
 </section>
 
 
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
- <script>
+
+<script>
   AOS.init({ duration: 1000, once: true });
 
-  function showTab(type) {
-    const loginTab = new bootstrap.Tab(document.getElementById('login-tab'));
-    const registerTab = new bootstrap.Tab(document.getElementById('register-tab'));
-    if (type === 'login') loginTab.show();
-    else registerTab.show();
+  function selectService(serviceName) {
+    const dropdown = document.querySelector('select[name="service"]');
+    const options = dropdown.options;
+
+    // Scroll to form
+    document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+
+    // Wait for the scroll to finish then set value
+    setTimeout(() => {
+      for (let i = 0; i < options.length; i++) {
+        if (options[i].value.trim() === serviceName.trim()) {
+          dropdown.selectedIndex = i;
+          break;
+        }
+      }
+    }, 500); // Delay to ensure scroll doesn't interrupt
   }
 </script>
+
 {% endblock %}

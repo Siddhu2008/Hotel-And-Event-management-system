@@ -10,22 +10,25 @@
 
   .hero-section {
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-    url('https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg') center/cover no-repeat;
+    url('https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2014/09/21/1702/ASPAC-P022-Cocktail-Party.jpg/ASPAC-P022-Cocktail-Party.16x9.jpg?imwidth=1920') center/cover no-repeat;
     color: #fff; padding: 100px 20px; text-align: center;
   }
 
   .event-card img { height: 230px; object-fit: cover; border-radius: 15px 15px 0 0; }
-  .event-card { cursor: pointer; transition: transform 0.3s ease; }
+  .event-card { cursor: pointer; transition: transform 0.3s ease; border-radius: 15px 15px 0 0;}
   .event-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
   .btn-gold { background-color: #d4af37; color: #000; border-radius: 50px; font-weight: 600; }
   .btn-gold:hover { background-color: #b9982e; color: #fff; }
   .modal-content { background-color: #1c1c1c; border-radius: 10px; color: white; }
   .form-control { background-color: #2c2c2c; border: 1px solid #555; color: #fff; }
   .form-control:focus { border-color: #d4af37; box-shadow: none; }
+  .details{
+    color: rgb(28, 49, 107);
+  }
 </style>
 
 <!-- Hero Section -->
-<section class="hero text-center text-white py-5" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('hotelm1.avif') center/cover no-repeat;">
+ <section class="hero-section">
   <div class="container">
     <h1 class="display-5 fw-bold">Host Your Event in Style</h1>
     <p class="lead">Select your event below and book with ease</p>
@@ -51,7 +54,7 @@
         <div class="card-body">
           <h5 class="card-title">{{ event.name }}</h5>
           <p class="card-text text-muted">{{ event.description }}</p>
-          <p class="text-muted">Date: {{ event.date }} | Time: {{ event.time }} | ₹{{ event.price }}</p>
+          <p class="details">Date: {{ event.date }} | Time: {{ event.time }} | ₹{{ event.price }}</p>
         </div>
       </div>
     </div>

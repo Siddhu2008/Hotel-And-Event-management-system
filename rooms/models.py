@@ -5,6 +5,7 @@ from accounts.models import User
 class Room(models.Model):
     room_number = models.CharField(max_length=10)
     room_type = models.CharField(max_length=50)
+    description = models.TextField(default="Spacious comfort with elegant interior and private balcony view.")
     price_per_night = models.DecimalField(max_digits=10, decimal_places=2)
     is_available = models.BooleanField(default=True)
     image = models.ImageField(upload_to='room_images/', blank=True, null=True)  # 🖼️ Image field

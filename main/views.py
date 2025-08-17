@@ -1,15 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.views import View
-from django.contrib.auth import login, authenticate, logout
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from .models import ContactMessage 
+from django.contrib.auth.decorators import login_required
+from .models import ContactMessage, UserProfile
+from events.models import Event
+from rooms.models import Room
 
 def home(request):
-    return render(request, 'home.html')
+    events = Event.objects.order_by('-id')[:3]  # Latest 3 events
+    rooms = Room.objects.order_by('-id')[:3]    # Latest 3 rooms
+    return render(request, 'home.html', {"events": events, "rooms": rooms})
 
 
+# Contact Page View
 def contact(request):
     if request.method == "POST":
         name = request.POST.get('name')
@@ -31,19 +33,15 @@ def contact(request):
 
     return render(request, 'contact.html')
 
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from .models import UserProfile
 
+# Profile View (Requires Login)
 @login_required
 def profile(request):
     user = request.user
-    # Get or create user profile
     profile, created = UserProfile.objects.get_or_create(user=user)
 
     if request.method == "POST":
-        # Update user fields only if values are provided
+        # Update User Fields
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         email = request.POST.get('email')
@@ -56,7 +54,7 @@ def profile(request):
             user.email = email
         user.save()
 
-        # Update profile fields only if values are provided
+        # Update Profile Fields
         phone = request.POST.get('phone')
         address = request.POST.get('address')
         profile_picture = request.FILES.get('profile_picture')
