@@ -142,15 +142,17 @@
     <h2 class="section-title">Our Rooms</h2>
     <div class="row g-4">
       {% for room in rooms %}
-     <a href="{% url 'room_detail' room.id %}" class="col-md-4 text-decoration-none text-dark" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:"1" }}00">
-  <div class="card border-0 shadow-sm">
-    <img src="{{ room.image.url }}" class="card-img-top" alt="{{ room.room_type }}" style="height: 200px; object-fit: cover;">
-    <div class="card-body">
-      <h5 class="card-title">{{ room.room_type }}</h5>
-      <p class="card-text text-muted">{{ room.description|truncatewords:15 }}</p>
-    </div>
-  </div>
-</a>
+      <a href="{% url 'room_detail' room.id %}" class="col-md-4 text-decoration-none text-dark" data-aos="fade-up"
+        data-aos-delay="{{ forloop.counter0|add:" 1" }}00">
+        <div class="card border-0 shadow-sm">
+          <img src="{{ room.image.url }}" class="card-img-top" alt="{{ room.room_type }}"
+            style="height: 200px; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title">{{ room.room_type }}</h5>
+            <p class="card-text text-muted">{{ room.description|truncatewords:15 }}</p>
+          </div>
+        </div>
+      </a>
       {% endfor %}
     </div>
 
@@ -164,7 +166,7 @@
     <h2 class="section-title">Our Events</h2>
     <div class="row g-4">
       {% for event in events %}
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'1' }}00">
+      <a href="{% url 'event_detail' event.id %}" class="col-md-4 text-decoration-none text-dark" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'1' }}00">
         <div class="card border-0 shadow-sm">
           <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.name }}" height="200px">
           <div class="card-body">
@@ -172,7 +174,7 @@
             <p class="card-text text-muted">{{ event.description|truncatewords:20 }}</p>
           </div>
         </div>
-      </div>
+      </a>
       {% endfor %}
     </div>
 
