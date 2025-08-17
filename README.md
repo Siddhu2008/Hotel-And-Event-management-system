@@ -51,13 +51,16 @@ mainproject/
 ### 1. Clone the Repository
 
 git clone https://github.com/YOUR_USERNAME/the-grand-retreat.git
+
 cd the-grand-retreat
 
 2. Set Up Virtual Environment
 python -m venv env
 # Activate
-env\Scripts\activate   # Windows
-source env/bin/activate  # macOS/Linux
+env\Scripts\activate   
+# Windows
+source env/bin/activate    
+# macOS/Linux
 
 3. Install Dependencies
 pip install -r requirements.txt
@@ -100,7 +103,6 @@ Django Framework
 
 Pexels for free images
 
-RandomUser.me for team avatars
 
 🌐 Future Improvements (Optional Ideas)
 
