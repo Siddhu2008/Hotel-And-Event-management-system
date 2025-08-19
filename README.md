@@ -3,8 +3,6 @@
 A modern Django-based hotel and event booking web app. Guests can browse rooms, view details, and make bookings with check-in and check-out dates. Admins can manage rooms and users can manage their profiles.
 
 ![Made with Django](https://img.shields.io/badge/Made%20with-Django-0C4B33.svg?style=for-the-badge&logo=django)
-![License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)
-
 ---
 
 ## 🚀 Features
@@ -51,15 +49,18 @@ mainproject/
 ## ⚙️ Getting Started
 
 ### 1. Clone the Repository
-```bash
+
 git clone https://github.com/YOUR_USERNAME/the-grand-retreat.git
+
 cd the-grand-retreat
 
 2. Set Up Virtual Environment
 python -m venv env
 # Activate
-env\Scripts\activate   # Windows
-source env/bin/activate  # macOS/Linux
+env\Scripts\activate   
+# Windows
+source env/bin/activate    
+# macOS/Linux
 
 3. Install Dependencies
 pip install -r requirements.txt
@@ -102,7 +103,6 @@ Django Framework
 
 Pexels for free images
 
-RandomUser.me for team avatars
 
 🌐 Future Improvements (Optional Ideas)
 
