@@ -13,7 +13,6 @@
       font-family: 'Playfair Display', serif;
     }
 
-
     .hero-section {
       background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
         url('https://tse3.mm.bing.net/th/id/OIP.IWKWY729KpAfvAcbPymTWAHaEK?pid=Api&P=0&h=180') center/cover no-repeat;
@@ -40,6 +39,7 @@
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
       overflow: hidden;
       transition: transform 0.3s ease;
+      cursor: pointer;
     }
 
     .service-card:hover {
@@ -78,11 +78,12 @@
     .nav-tabs .nav-link {
       color: #aaa;
     }
-     .profile-card, .package-card {
+    .profile-card, .package-card {
       border-radius: 15px;
       overflow: hidden;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease;
+      cursor: pointer;
     }
 
     .profile-card:hover, .package-card:hover {
@@ -117,62 +118,70 @@
       color: #d4af37;
       padding-left: 5px;
     }
-   
-    .form-input{
-         background-color: #fcfcfc;
+
+    .form-input {
+      background-color: #fcfcfc;
       border: 1px solid #555;
       color: #080808;
     }
+
     .text-gold {
       color: #d4af37;
     }
   </style>
-<!-- Hero Section -->
-<section class="hero-section">
-  <div class="container">
-    <h1 class="display-5 fw-bold">Luxury Spa & Wellness</h1>
-    <p class="lead">Rejuvenate your body, mind, and soul</p>
-    <a href="#booking" class="btn btn-gold mt-3 px-4">Book a Spa Session</a>
-  </div>
-</section>
+{% if messages %}
+        <div class="mt-3">
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <h1 class="display-5 fw-bold">Luxury Spa & Wellness</h1>
+      <p class="lead">Rejuvenate your body, mind, and soul</p>
+      <a href="#booking" class="btn btn-gold mt-3 px-4">Book a Spa Session</a>
+    </div>
+  </section>
 
-<!-- Services -->
-<section class="container py-5">
-  <h2 class="text-center mb-4">Our Signature Treatments</h2>
-  <div class="row g-4">
-    <div class="col-md-4" data-aos="fade-up">
-      <div class="card service-card" data-service="Aroma Therapy" onclick="selectService('Aroma Therapy')">
-        <img src="https://images.pexels.com/photos/3997995/pexels-photo-3997995.jpeg" class="card-img-top" alt="Massage">
-        <div class="card-body">
-          <h5 class="card-title">Aroma Therapy</h5>
-          <p class="card-text text-muted">Relax with our scented oil massage and restore your energy.</p>
+  <!-- Services -->
+  <section class="container py-5">
+    <h2 class="text-center mb-4">Our Signature Treatments</h2>
+    <div class="row g-4">
+      <div class="col-md-4" data-aos="fade-up">
+        <div class="card service-card" data-service="Aroma Therapy" onclick="selectService('Aroma Therapy')">
+          <img src="https://images.pexels.com/photos/3997995/pexels-photo-3997995.jpeg" class="card-img-top" alt="Massage">
+          <div class="card-body">
+            <h5 class="card-title">Aroma Therapy</h5>
+            <p class="card-text text-muted">Relax with our scented oil massage and restore your energy.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4" data-aos="fade-up">
+        <div class="card service-card" data-service="Hydrating Facial" onclick="selectService('Hydrating Facial')">
+          <img src="https://images.pexels.com/photos/3571554/pexels-photo-3571554.jpeg" class="card-img-top" alt="Facial">
+          <div class="card-body">
+            <h5 class="card-title">Hydrating Facial</h5>
+            <p class="card-text text-muted">Glow naturally with our herbal and organic facial treatments.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4" data-aos="fade-up">
+        <div class="card service-card" data-service="Detox Body Wrap" onclick="selectService('Detox Body Wrap')">
+          <img src="https://tse1.mm.bing.net/th/id/OIP.uhN2hPJhZesmijQ5j8bptwHaE8?pid=Api&P=0&h=180" class="card-img-top" alt="Body Wrap">
+          <div class="card-body">
+            <h5 class="card-title">Detox Body Wrap</h5>
+            <p class="card-text text-muted">Cleanse toxins with rich mud therapy and skin rejuvenation wrap.</p>
+          </div>
         </div>
       </div>
     </div>
+  </section>
 
-    <div class="col-md-4" data-aos="fade-up">
-      <div class="card service-card" data-service="Hydrating Facial" onclick="selectService('Hydrating Facial')">
-        <img src="https://images.pexels.com/photos/3571554/pexels-photo-3571554.jpeg" class="card-img-top" alt="Facial">
-        <div class="card-body">
-          <h5 class="card-title">Hydrating Facial</h5>
-          <p class="card-text text-muted">Glow naturally with our herbal and organic facial treatments.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4" data-aos="fade-up">
-      <div class="card service-card" data-service="Detox Body Wrap" onclick="selectService('Detox Body Wrap')">
-        <img src="https://tse1.mm.bing.net/th/id/OIP.uhN2hPJhZesmijQ5j8bptwHaE8?pid=Api&P=0&h=180" class="card-img-top" alt="Body Wrap">
-        <div class="card-body">
-          <h5 class="card-title">Detox Body Wrap</h5>
-          <p class="card-text text-muted">Cleanse toxins with rich mud therapy and skin rejuvenation wrap.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
- <!-- Therapist Profiles -->
+  <!-- Therapist Profiles -->
   <section class="py-5">
     <div class="container">
       <h2 class="text-center mb-5">Meet Our Therapists</h2>
@@ -210,110 +219,135 @@
 
   <!-- Packages -->
   <section class="py-5 bg-light">
-  <div class="container">
-    <h2 class="text-center mb-5">Our Spa Packages</h2>
-    <div class="row g-4">
-      <div class="col-md-4" data-aos="fade-right">
-        <div class="card package-card p-4 text-center" onclick="selectService('Relax & Rejuvenate')">
-          <h4>Relax & Rejuvenate</h4>
-          <p class="text-muted">₹3,000</p>
-          <ul class="list-unstyled small">
-            <li>60-min Aromatherapy</li>
-            <li>Steam & Sauna</li>
-            <li>Herbal Tea</li>
-          </ul>
+    <div class="container">
+      <h2 class="text-center mb-5">Our Spa Packages</h2>
+      <div class="row g-4">
+        <div class="col-md-4" data-aos="fade-right">
+          <div class="card package-card p-4 text-center" onclick="selectService('Relax & Rejuvenate')">
+            <h4>Relax & Rejuvenate</h4>
+            <p class="text-muted">₹3,000</p>
+            <ul class="list-unstyled small">
+              <li>60-min Aromatherapy</li>
+              <li>Steam & Sauna</li>
+              <li>Herbal Tea</li>
+            </ul>
+          </div>
         </div>
-      </div>
 
-      <div class="col-md-4" data-aos="fade-up">
-        <div class="card package-card p-4 text-center" onclick="selectService('Luxury Retreat')">
-          <h4>Luxury Retreat</h4>
-          <p class="text-muted">₹5,500</p>
-          <ul class="list-unstyled small">
-            <li>90-min Deep Tissue</li>
-            <li>Facial & Foot Massage</li>
-            <li>Champagne & Fruit Platter</li>
-          </ul>
+        <div class="col-md-4" data-aos="fade-up">
+          <div class="card package-card p-4 text-center" onclick="selectService('Luxury Retreat')">
+            <h4>Luxury Retreat</h4>
+            <p class="text-muted">₹5,500</p>
+            <ul class="list-unstyled small">
+              <li>90-min Deep Tissue</li>
+              <li>Facial & Foot Massage</li>
+              <li>Champagne & Fruit Platter</li>
+            </ul>
+          </div>
         </div>
-      </div>
 
-      <div class="col-md-4" data-aos="fade-left">
-        <div class="card package-card p-4 text-center" onclick="selectService(`Couple's Escape`)">
-          <h4>Couple's Escape</h4>
-          <p class="text-muted">₹8,000</p>
-          <ul class="list-unstyled small">
-            <li>Couple Massage</li>
-            <li>Jacuzzi Session</li>
-            <li>Candlelight Ambience</li>
-          </ul>
+        <div class="col-md-4" data-aos="fade-left">
+          <div class="card package-card p-4 text-center" onclick="selectService(`Couple's Escape`)">
+            <h4>Couple's Escape</h4>
+            <p class="text-muted">₹8,000</p>
+            <ul class="list-unstyled small">
+              <li>Couple Massage</li>
+              <li>Jacuzzi Session</li>
+              <li>Candlelight Ambience</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Booking Form -->
-<section class="bg-light py-5" id="booking">
-  <div class="container">
-    <h2 class="text-center mb-4">Book Your Spa Appointment</h2>
-    
-    {% if services %}
-    <form method="POST" action="{% url 'book_spa' %}" class="col-md-8 mx-auto" data-aos="fade-up">
-      {% csrf_token %}
-      <div class="mb-3">
-        <label class="form-label">Preferred Date</label>
-        <input type="date" name="date" class="form-control form-input" required />
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Preferred Time</label>
-        <input type="time" name="time" class="form-control form-input" required />
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Select Treatment</label>
-        <select name="service" class="form-select" required>
-          {% for service in services %}
-            <option value="{{ service.name }}">{{ service.name }}</option>
-          {% endfor %}
-        </select>
-      </div>
-      <button type="submit" class="btn btn-gold w-100 mt-3">Confirm Appointment</button>
-    </form>
-    {% else %}
-      <p class="text-center text-dark">No spa services available at the moment.</p>
-    {% endif %}
+  <!-- Booking Form -->
+  <section class="bg-light py-5" id="booking">
+    <div class="container">
+      <h2 class="text-center mb-4">Book Your Spa Appointment</h2>
 
-    {% if messages %}
-      <div class="mt-3">
-        {% for message in messages %}
-          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-        {% endfor %}
-      </div>
-    {% endif %}
-  </div>
-</section>
+      {% if services %}
+      <form method="POST" action="{% url 'book_spa' %}" class="col-md-8 mx-auto" data-aos="fade-up">
+        {% csrf_token %}
 
+        <div class="mb-3">
+          <label class="form-label">Preferred Date</label>
+          <select name="date" id="date-select" class="form-select form-input" required>
+            <option value="">Select a date</option>
+            {% for date_option in date_choices %}
+              <option value="{{ date_option|date:'Y-m-d' }}"
+                {% if date_option == selected_date %}selected{% endif %}>
+                {{ date_option|date:"D, M d, Y" }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
 
+        <div class="mb-3">
+          <label class="form-label">Select Treatment</label>
+          <select id="service-select" name="service" class="form-select form-input" required>
 
-<script>
-  AOS.init({ duration: 1000, once: true });
+  {% for service in services %}
+    <option value="{{ service.id }}" {% if service == selected_service %}selected{% endif %}>{{ service.name }}</option>
+  {% endfor %}
+</select>
 
-  function selectService(serviceName) {
-    const dropdown = document.querySelector('select[name="service"]');
-    const options = dropdown.options;
+        </div>
 
-    // Scroll to form
-    document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+        <div class="mb-3">
+          <label class="form-label">Preferred Time</label>
+          <label for="time-select">Select Time:</label>
+<select id="time-select" name="time" class="form-select form-input" required>
+  <option>Loading...</option>
+</select>
 
-    // Wait for the scroll to finish then set value
-    setTimeout(() => {
-      for (let i = 0; i < options.length; i++) {
-        if (options[i].value.trim() === serviceName.trim()) {
-          dropdown.selectedIndex = i;
-          break;
+        </div>
+
+        <button type="submit" class="btn btn-gold w-100 mt-3">Confirm Appointment</button>
+      </form>
+      {% else %}
+        <p class="text-center text-dark">No spa services available at the moment.</p>
+      {% endif %}
+
+      
+    </div>
+  </section>
+
+  <script>
+  function fetchAvailableSlots() {
+    const date = document.getElementById('date-select').value;
+    const serviceId = document.getElementById('service-select').value;
+
+    fetch(`/spas/slots/?date=${date}&service_id=${serviceId}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log("Available Slots:", data.slots);
+        
+        const slotSelect = document.getElementById('time-select');
+        slotSelect.innerHTML = '';
+
+        if (data.slots.length === 0) {
+          const option = document.createElement('option');
+          option.textContent = 'No available slots';
+          option.disabled = true;
+          option.selected = true;
+          slotSelect.appendChild(option);
+        } else {
+          data.slots.forEach(slot => {
+            const option = document.createElement('option');
+            option.value = slot.time;
+            option.textContent = `${slot.time} - ${slot.is_booked ? 'Booked' : 'Available'} - $${slot.price}`;
+            option.disabled = slot.is_booked;
+            slotSelect.appendChild(option);
+          });
         }
-      }
-    }, 500); // Delay to ensure scroll doesn't interrupt
+      })
+      .catch(error => console.error('Error fetching slots:', error));
   }
-</script>
 
+  document.getElementById('date-select').addEventListener('change', fetchAvailableSlots);
+  document.getElementById('service-select').addEventListener('change', fetchAvailableSlots);
+
+  window.addEventListener('DOMContentLoaded', fetchAvailableSlots);
+</script>
 {% endblock %}

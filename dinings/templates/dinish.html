@@ -6,20 +6,32 @@
 <style>
   body { font-family: 'Open Sans', sans-serif; background-color: #f8f9fa; }
   h1, h2, h3 { font-family: 'Playfair Display', serif; }
- .hero-section { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg') center/cover no-repeat; color: white; padding: 100px 20px; text-align: center; }
+  .hero-section {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                url('https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg') center/cover no-repeat;
+    color: white;
+    padding: 100px 20px;
+    text-align: center;
+  }
   .btn-gold { background-color: #d4af37; color: #000; font-weight: 600; border-radius: 50px; }
   .btn-gold:hover { background-color: #b9982e; color: #fff; }
   .menu-section { background-color: #fff; padding: 60px 0; }
   .menu-item { border-bottom: 1px solid #ddd; padding: 15px 0; }
   .text-gold { color: #d4af37; }
   .modal-content { background-color: #1c1c1c; border-radius: 10px; color: white; }
-  .nav-tabs .nav-link.active { background-color: transparent; border: none; color: #d4af37; font-weight: bold; }
-  .nav-tabs .nav-link { color: #aaa; }
   .form-control { background-color: #2c2c2c; border: 1px solid #555; color: #fff; }
   .form-control:focus { border-color: #d4af37; box-shadow: none; }
-  .footer-link { display: block; color: #ccc; margin-bottom: 0.5rem; transition: all 0.3s ease; text-decoration: none; }
-  .footer-link:hover { color: #d4af37; padding-left: 5px; }
+  .form-select { background-color: #2c2c2c; border: 1px solid #555; color: #fff; }
+  .form-select:focus { border-color: #d4af37; box-shadow: none; }
+  .alert { font-weight: 500; }
 </style>
+{% if messages %}
+          <div class="mt-4">
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
 
 <!-- Hero Section -->
 <section class="hero-section">
@@ -35,13 +47,13 @@
   <div class="container">
     <h2 class="text-center text-gold mb-5">Our Signature Dishes</h2>
     <div class="row g-4">
-      <!-- Example dishes, can be dynamic -->
+      <!-- Example dishes -->
       <div class="col-md-4" data-aos="fade-up">
         <div class="card dish-card">
           <img src="https://images.pexels.com/photos/4913976/pexels-photo-4913976.jpeg" class="card-img-top" alt="Grilled Salmon" />
           <div class="card-body">
             <h5 class="card-title">Grilled Salmon</h5>
-            <p class="card-text text-muted">Fresh Atlantic salmon grilled to perfection with herbs & lemon butter.</p>
+            <p class="card-text text-muted">Fresh Atlantic salmon grilled with herbs & lemon butter.</p>
           </div>
         </div>
       </div>
@@ -50,7 +62,7 @@
           <img src="https://images.pexels.com/photos/616353/pexels-photo-616353.jpeg" class="card-img-top" alt="Truffle Pasta" />
           <div class="card-body">
             <h5 class="card-title">Truffle Pasta</h5>
-            <p class="card-text text-muted">Silky tagliatelle tossed with black truffle cream and parmesan flakes.</p>
+            <p class="card-text text-muted">Tagliatelle tossed with black truffle cream and parmesan.</p>
           </div>
         </div>
       </div>
@@ -59,7 +71,7 @@
           <img src="https://images.pexels.com/photos/3184192/pexels-photo-3184192.jpeg" class="card-img-top" alt="Gourmet Steak" />
           <div class="card-body">
             <h5 class="card-title">Gourmet Steak</h5>
-            <p class="card-text text-muted">Aged tenderloin cooked medium-rare with wine reduction and roasted veggies.</p>
+            <p class="card-text text-muted">Tenderloin cooked medium-rare with wine reduction.</p>
           </div>
         </div>
       </div>
@@ -73,6 +85,7 @@
     <h2 class="text-center mb-4 text-gold">Reserve Your Table</h2>
     <div class="row justify-content-center">
       <div class="col-md-6">
+
         {% if tables %}
           <form method="POST" action="{% url 'book_table' table_id=0 %}" class="bg-black p-4 rounded-4 shadow">
             {% csrf_token %}
@@ -84,14 +97,19 @@
                 {% endfor %}
               </select>
             </div>
-            <div class="mb-3">
-              <label class="form-label">Date</label>
-              <input type="date" name="reservation_date" class="form-control" required />
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Time</label>
-              <input type="time" name="reservation_time" class="form-control" required />
-            </div>
+
+           <!-- Date Dropdown -->
+<div class="mb-3">
+  <label class="form-label">Date</label>
+  <select name="reservation_date" id="date-select" class="form-select" required></select>
+</div>
+
+            <!-- Time Dropdown -->
+<div class="mb-3">
+  <label class="form-label">Time</label>
+  <select name="reservation_time" id="time-select" class="form-select" required></select>
+</div>
+
             <div class="text-center">
               <button type="submit" class="btn btn-gold px-5 py-2">Book Table</button>
             </div>
@@ -100,16 +118,35 @@
           <p class="text-center text-white">No tables available at the moment.</p>
         {% endif %}
 
-        {% if messages %}
-          <div class="mt-3">
-            {% for message in messages %}
-              <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-            {% endfor %}
-          </div>
-        {% endif %}
+        
       </div>
     </div>
   </div>
 </section>
+<script>
+  // Populate next 7 days
+  const dateSelect = document.getElementById('date-select');
+  const today = new Date();
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(today);
+    date.setDate(today.getDate() + i);
+    const formatted = date.toISOString().split('T')[0];
+    const option = document.createElement('option');
+    option.value = formatted;
+    option.textContent = formatted;
+    dateSelect.appendChild(option);
+  }
 
+  // Populate time slots (from 10:00 to 22:00 every 30 minutes)
+  const timeSelect = document.getElementById('time-select');
+  for (let hour = 10; hour <= 21; hour++) {
+    ['00', '30'].forEach(min => {
+      const value = `${String(hour).padStart(2, '0')}:${min}`;
+      const option = document.createElement('option');
+      option.value = value;
+      option.textContent = value;
+      timeSelect.appendChild(option);
+    });
+  }
+</script>
 {% endblock %}
