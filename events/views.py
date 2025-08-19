@@ -142,6 +142,23 @@ def get_available_slots(request):
         return JsonResponse({"slots": available_slots})
 
 
-def adminEvent(request):
-    events = Event.objects.all()
-    return render(request, "AdminEvents.html", {"events": events})
+@login_required
+def admin_event_bookings(request):
+    bookings = EventBooking.objects.select_related('user', 'event').order_by('-booking_datetime')
+    return render(request, 'admin_event_bookings.html', {'bookings': bookings})
+
+
+from django.shortcuts import render, redirect
+from .forms import EventForm
+from django.contrib import messages
+
+def add_event(request):
+    if request.method == 'POST':
+        form = EventForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Event added successfully!')
+            return redirect('add_event')
+    else:
+        form = EventForm()
+    return render(request, 'add_event.html', {'form': form})

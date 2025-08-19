@@ -67,7 +67,7 @@ def book_table(request, table_id=None):
             table=table,
             reservation_date=reservation_date,
             reservation_time=reservation_time,
-            is_confirmed=False
+            is_confirmed=True
         )
 
         messages.success(request, f"Your reservation for Table {table.table_number} has been submitted successfully.")
@@ -81,3 +81,8 @@ def book_table(request, table_id=None):
 def my_dining_reservations(request):
     reservations = DiningReservation.objects.filter(user=request.user).order_by('-reservation_date', '-reservation_time')
     return render(request, 'dinish.html', {'reservations': reservations})
+
+@login_required
+def admin_dinish(request):
+    reservations = DiningReservation.objects.select_related('user', 'table').order_by('-reservation_date', '-reservation_time')
+    return render(request, 'admin_dinish.html', {'reservations': reservations})

@@ -109,3 +109,27 @@ def admin_profile(request):
         return redirect('admin_profile')
 
     return render(request, 'Adminprofile.html', {'user': user, 'profile': profile})
+
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from rooms.models import RoomBooking
+from events.models import EventBooking
+from spas.models import SpaBooking
+from dinings.models import DiningReservation
+
+@login_required
+def user_bookings(request):
+    room_bookings = RoomBooking.objects.filter(user=request.user).select_related('room').order_by('-booking_date')
+    event_bookings = EventBooking.objects.filter(user=request.user).select_related('event').order_by('-booking_datetime')
+    spa_bookings = SpaBooking.objects.filter(user=request.user).select_related('service').order_by('-appointment_date', '-appointment_time')
+    dining_bookings = DiningReservation.objects.filter(user=request.user).select_related('table').order_by('-reservation_date', '-reservation_time')
+
+    context = {
+        'room_bookings': room_bookings,
+        'event_bookings': event_bookings,
+        'spa_bookings': spa_bookings,
+        'dining_bookings': dining_bookings,
+    }
+    return render(request, 'user_bookings.html', context)
+

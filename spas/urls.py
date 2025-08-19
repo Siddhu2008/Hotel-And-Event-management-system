@@ -7,4 +7,6 @@ urlpatterns = [
     path('', views.spa, name='spa'),
     path('book/', views.book_spa, name='book_spa'),
   path('slots/', views.get_available_slots, name='spa_slots'),
+    path('admin-spa/', views.admin_spa, name='Adminspa'),
+
 ]

@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% block title %}My Bookings | The Grand Retreat{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <h2 class="text-gold mb-4">My Bookings</h2>
+
+  <!-- Room Bookings -->
+  <h4 class="mt-4">Room Bookings</h4>
+  {% if room_bookings %}
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Room</th>
+            <th>Check-In</th>
+            <th>Check-Out</th>
+            <th>Total</th>
+            <th>Confirmed</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for booking in room_bookings %}
+          <tr>
+            <td>{{ booking.room }}</td>
+            <td>{{ booking.check_in }}</td>
+            <td>{{ booking.check_out }}</td>
+            <td>₹{{ booking.total_price }}</td>
+            <td>
+              {% if booking.is_confirmed %}
+                <span class="badge bg-success">Yes</span>
+              {% else %}
+                <span class="badge bg-secondary">No</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-muted">No room bookings found.</p>
+  {% endif %}
+
+  <!-- Event Bookings -->
+  <h4 class="mt-5">Event Bookings</h4>
+  {% if event_bookings %}
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Date & Time</th>
+            <th>Guests</th>
+            <th>Total</th>
+            <th>Confirmed</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for booking in event_bookings %}
+          <tr>
+            <td>{{ booking.event.name }}</td>
+            <td>{{ booking.booking_datetime|date:"Y-m-d h:i A" }}</td>
+            <td>{{ booking.number_of_guests }}</td>
+            <td>₹{{ booking.price }}</td>
+            <td>
+              {% if booking.is_confirmed %}
+                <span class="badge bg-success">Yes</span>
+              {% else %}
+                <span class="badge bg-secondary">No</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-muted">No event bookings found.</p>
+  {% endif %}
+
+  <!-- Spa Bookings -->
+  <h4 class="mt-5">Spa Bookings</h4>
+  {% if spa_bookings %}
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Confirmed</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for booking in spa_bookings %}
+          <tr>
+            <td>{{ booking.service.name }}</td>
+            <td>{{ booking.appointment_date }}</td>
+            <td>{{ booking.appointment_time }}</td>
+            <td>
+              {% if booking.is_confirmed %}
+                <span class="badge bg-success">Yes</span>
+              {% else %}
+                <span class="badge bg-secondary">No</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-muted">No spa bookings found.</p>
+  {% endif %}
+
+  <!-- Dining Bookings -->
+  <h4 class="mt-5">Dining Reservations</h4>
+  {% if dining_bookings %}
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Table</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Confirmed</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for booking in dining_bookings %}
+          <tr>
+            <td>{{ booking.table.table_number }}</td>
+            <td>{{ booking.reservation_date }}</td>
+            <td>{{ booking.reservation_time }}</td>
+            <td>
+              {% if booking.is_confirmed %}
+                <span class="badge bg-success">Yes</span>
+              {% else %}
+                <span class="badge bg-secondary">No</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-muted">No dining reservations found.</p>
+  {% endif %}
+</div>
+{% endblock %}

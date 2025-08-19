@@ -142,7 +142,7 @@
     <h2 class="section-title">Our Rooms</h2>
     <div class="row g-4">
       {% for room in rooms %}
-      <a href="{% url 'room_detail' room.id %}" class="col-md-4 text-decoration-none text-dark" data-aos="fade-up"
+      <a href="{% url 'room' %}" class="col-md-4 text-decoration-none text-dark" data-aos="fade-up"
         data-aos-delay="{{ forloop.counter0|add:" 1" }}00">
         <div class="card border-0 shadow-sm">
           <img src="{{ room.image.url }}" class="card-img-top" alt="{{ room.room_type }}"

@@ -59,10 +59,8 @@
           <h5 class="card-title">{{ room.room_type }} (Room {{ room.room_number }})</h5>
           <p class="card-text text-muted">₹{{ room.price_per_night }}/night</p>
           {% if room.is_available %}
-            <div class="gap-3">
               <span class="badge bg-success mb-2">Available</span>
-              <a href="{% url 'room_detail' room.id %}" class="text-decoration-none" style="float: right;">View details</a>
-            </div>
+             
             <button class="btn btn-gold w-100 book-btn"
                     data-bs-toggle="modal"
                     data-bs-target="#bookingModal"
@@ -72,7 +70,7 @@
               Book Now
             </button>
           {% else %}
-            <span class="badge bg-danger">Booked</span>
+            <span class="badge bg-danger mb-2">Booked</span>
             <button class="btn btn-secondary w-100" disabled>Unavailable</button>
           {% endif %}
         </div>

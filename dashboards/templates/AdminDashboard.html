@@ -4,43 +4,87 @@
 
 {% block main %}
 <div class="container-fluid">
+  <!-- Stats Cards -->
+   <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="fw-bold mb-0">Admin Dashboard</h3>
+    <a href="{% url 'user_list' %}" class="btn btn-gold"><i class="bi bi-person-check me-1"></i> View All Users</a>
+  </div>
+
   <div class="row g-4 mb-4">
+    <!-- Total Users -->
     <div class="col-md-4">
       <div class="card text-center shadow-sm border-0">
-        <div class="card-body">
-          <i class="bi bi-people fs-1 text-warning mb-2"></i>
+        <a href="{% url 'user_list' %}" class="card-body text-decoration-none">
+          <i class="bi bi-person-check fs-1 text-warning mb-2"></i>
           <h5 class="fw-bold mb-0">Total Users</h5>
-          <p class="fs-4 mb-0">{{ stats.total_users|default:"0" }}</p>
-        </div>
+          <p class="fs-4 mb-0">{{ total_users }}</p>
+        </a>
       </div>
     </div>
+
+    <!-- Total Room Bookings -->
+    <div class="col-md-4">
+      <div class="card text-center shadow-sm border-0">
+        <a href="{% url 'adminRoom' %}" class="card-body text-decoration-none">
+          <i class="bi bi-house-door fs-1 text-warning mb-2"></i>
+          <h5 class="fw-bold mb-0">Total Room Bookings</h5>
+          <p class="fs-4 mb-0">{{ total_room_bookings }}</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- Total Event Bookings -->
+    <div class="col-md-4">
+      <div class="card text-center shadow-sm border-0">
+        <a href="{% url 'adminEvent' %}" class="card-body text-decoration-none">
+          <i class="bi bi-calendar-event fs-1 text-warning mb-2"></i>
+          <h5 class="fw-bold mb-0">Total Event Bookings</h5>
+          <p class="fs-4 mb-0">{{ total_event_bookings }}</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- Total Spa Bookings -->
+    <div class="col-md-4">
+      <div class="card text-center shadow-sm border-0">
+        <a href="{% url 'Adminspa' %}" class="card-body text-decoration-none">
+          <i class="bi bi-heart-pulse fs-1 text-warning mb-2"></i>
+          <h5 class="fw-bold mb-0">Total Spa Bookings</h5>
+          <p class="fs-4 mb-0">{{ total_spa_bookings }}</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- Total Table Bookings -->
+    <div class="col-md-4">
+      <div class="card text-center shadow-sm border-0">
+        <a href="{% url 'Admindinish' %}" class="card-body text-decoration-none">
+          <i class="bi bi-cup-straw fs-1 text-warning mb-2"></i>
+          <h5 class="fw-bold mb-0">Total Table Bookings</h5>
+          <p class="fs-4 mb-0">{{ total_dining_bookings }}</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- Total Payments -->
     <div class="col-md-4">
       <div class="card text-center shadow-sm border-0">
         <div class="card-body">
-          <i class="bi bi-calendar-check fs-1 text-warning mb-2"></i>
-          <h5 class="fw-bold mb-0">Total Bookings</h5>
-          <p class="fs-4 mb-0">{{ stats.total_bookings|default:"0" }}</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card text-center shadow-sm border-0">
-        <div class="card-body">
-          <i class="bi bi-currency-rupee fs-1 text-warning mb-2"></i>
+          <i class="bi bi-wallet2 fs-1 text-warning mb-2"></i>
           <h5 class="fw-bold mb-0">Total Payments</h5>
-          <p class="fs-4 mb-0">₹{{ stats.total_payments|default:"0.00" }}</p>
+          <p class="fs-4 mb-0">₹{{ total_payments|floatformat:2 }}</p>
         </div>
       </div>
     </div>
   </div>
+
   <!-- Quick Actions -->
   <div class="card shadow-sm border-0 mb-4">
     <div class="card-body">
       <h5 class="fw-bold mb-3">Quick Actions</h5>
       <div class="d-flex flex-wrap gap-3">
-        <a href="#" class="btn btn-gold"><i class="bi bi-plus-circle me-1"></i> Add Room</a>
-        <a href="#" class="btn btn-gold"><i class="bi bi-calendar-plus me-1"></i> Add Event</a>
-        <a href="#" class="btn btn-gold"><i class="bi bi-journal-plus me-1"></i> Add Booking</a>
+        <a href="{% url 'add_room' %}" class="btn btn-gold"><i class="bi bi-plus-circle me-1"></i> Add Room</a>
+        <a href="{% url 'add_event' %}" class="btn btn-gold"><i class="bi bi-calendar-plus me-1"></i> Add Event</a>
       </div>
     </div>
   </div>

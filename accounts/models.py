@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.+
 class User(AbstractUser):
+    name = models.CharField(max_length=255, null=True, blank=True)
     contact = models.CharField(max_length=13)
     gender = models.CharField(max_length=3, choices=(('M',"male"),('f',"female"),('o',"other"),('N/A',"don't want to mention")))
     user = models.CharField(max_length=1, choices=(

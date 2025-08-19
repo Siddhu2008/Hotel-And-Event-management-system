@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Events | The Grand Retreat{% endblock %}
+
+{% block main %}
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="fw-bold mb-0">Events Management</h3>
+    <a href="{% url 'add_event' %}" class="btn btn-gold"><i class="bi bi-plus-circle me-1"></i> Add Event</a>
+  </div>
+  {% if bookings %}
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>User</th>
+            <th>Event</th>
+            <th>Date & Time</th>
+            <th>Guests</th>
+            <th>Total Price</th>
+            <th>Confirmed</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for booking in bookings %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ booking.user.username }}</td>
+              <td>{{ booking.event.name }}</td>
+              <td>{{ booking.booking_datetime|date:"Y-m-d h:i A" }}</td>
+              <td>{{ booking.number_of_guests }}</td>
+              <td>₹{{ booking.price }}</td>
+              <td>
+                {% if booking.is_confirmed %}
+                  <span class="badge bg-success">Yes</span>
+                {% else %}
+                  <span class="badge bg-secondary">No</span>
+                {% endif %}
+              </td>
+              <td>{{ booking.notes|default:"-" }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-muted">No event bookings found.</p>
+  {% endif %}
+  </div>
+</div>
+{% endblock %}

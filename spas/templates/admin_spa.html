@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Spa Bookings | Admin{% endblock %}
+
+{% block main %}
+<div class="container py-4">
+  <h2 class="mb-4 text-gold">Spa Bookings</h2>
+
+  {% if bookings %}
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>User</th>
+            <th>Service</th>
+            <th>Price</th>
+            <th>Duration</th>
+            <th>Appointment Date</th>
+            <th>Time</th>
+            <th>Confirmed</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for booking in bookings %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ booking.user.username }}</td>
+              <td>{{ booking.service.name }}</td>
+              <td>₹{{ booking.service.price }}</td>
+              <td>{{ booking.service.duration_in_minutes }} mins</td>
+              <td>{{ booking.appointment_date }}</td>
+              <td>{{ booking.appointment_time }}</td>
+              <td>
+                {% if booking.is_confirmed %}
+                  <span class="badge bg-success">Yes</span>
+                {% else %}
+                  <span class="badge bg-secondary">No</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-muted">No spa bookings found.</p>
+  {% endif %}
+</div>
+{% endblock %}

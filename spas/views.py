@@ -152,3 +152,9 @@ def get_available_slots(request):
 
     print(f"Slots returned: {slots}")
     return JsonResponse({'slots': slots})
+
+@login_required
+
+def admin_spa(request):
+    bookings = SpaBooking.objects.select_related('user', 'service').order_by('-appointment_date', '-appointment_time')
+    return render(request, 'admin_spa.html', {'bookings': bookings})

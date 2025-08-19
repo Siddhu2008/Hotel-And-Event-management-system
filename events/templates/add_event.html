@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Add Event | Admin{% endblock %}
+
+{% block main %}
+<style>
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 0;
+  }
+
+  .form-container {
+    max-width: 450px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    background-color: #ffffff;
+    transition: all 0.3s ease;
+  }
+
+  .form-container:hover {
+    box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+  }
+
+  .form-label {
+    font-weight: 600;
+  }
+
+  .btn-submit {
+    background-color: #28a745;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .btn-submit:hover {
+    background-color: #218838;
+  }
+
+  .text-danger {
+    font-size: 0.85rem;
+  }
+
+
+  /* Checkbox styling */
+  input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    position: relative;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  input[type="checkbox"]:checked {
+    background-color: #28a745;
+    border-color: #28a745;
+  }
+
+  input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 3px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg);
+  }
+
+  input[type="checkbox"]:hover {
+    border-color: #28a745;
+  }
+
+</style>
+
+<div class="form-container">
+  <h2 class="mb-4 text-center">Add New Event</h2>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="POST" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+
+    {% for field in form %}
+      <div class="mb-3">
+        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+        {{ field|add_class:"form-control" }}
+
+        {% if field.help_text %}
+          <small class="form-text text-muted">{{ field.help_text }}</small>
+        {% endif %}
+
+        {% if field.errors %}
+          <div class="text-danger">{{ field.errors|striptags }}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <div class="d-grid mt-4">
+      <button type="submit" class="btn btn-submit btn-lg rounded-pill">Add Event</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

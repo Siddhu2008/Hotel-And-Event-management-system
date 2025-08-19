@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}User List{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h2 class="mb-4">All Users</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Gender</th>
+                <th>User Type</th>
+                <th>Date Joined</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.name|default:user.get_full_name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.contact }}</td>
+                    <td>
+                        {% if user.gender == 'M' %}
+                            Male
+                        {% elif user.gender == 'f' %}
+                            Female
+                        {% elif user.gender == 'o' %}
+                            Other
+                        {% else %}
+                            Prefer not to say
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if user.user == 's' %}
+                            Supplier
+                        {% elif user.user == 'c' %}
+                            Customer
+                        {% endif %}
+                    </td>
+                    <td>{{ user.date_joined|date:"M d, Y" }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

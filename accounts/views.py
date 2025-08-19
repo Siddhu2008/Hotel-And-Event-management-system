@@ -62,6 +62,13 @@ class Logout(View):
         logout(request)
         return redirect('/')
 
+from django.views.generic import ListView
+from .models import User
+
+class UserListView(ListView):
+    model = User
+    template_name = 'user_list.html'  # Create this template
+    context_object_name = 'users'
 
 
             
