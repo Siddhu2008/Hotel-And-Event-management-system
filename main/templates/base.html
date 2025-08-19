@@ -36,6 +36,26 @@
       .nav-link:hover {
         color: #d4af37 !important;
       }
+      
+        /* Responsive sidebar for admin */
+        @media (max-width: 991px) {
+            aside[role="navigation"] {
+                display: none;
+            }
+        }
+        .sidebar-avatar {
+            background-size: cover;
+            background-position: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid #d4af37;
+        }
+        .sidebar-avatar-lg {
+            width: 64px;
+            height: 64px;
+        }
+      
       .btn-gold { background-color: #d4af37; color: #000; font-weight: 600; border-radius: 50px; }
   .btn-gold:hover { background-color: #b9982e; color: #fff; }
   /* ... Place your CSS here ... */
@@ -51,60 +71,119 @@
   color: #d4af37;
   padding-left: 5px;
 }
+/* Hide dropdown caret for sidebar avatar */
+.sidebar-avatar.dropdown-toggle::after {
+    display: none !important;
+}
     </style>
     {% block extra_head %}{% endblock %}
 </head>
 <body>
     <!-- Navbar -->
-    <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top py-3">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="{% url 'home' %}">The Grand Retreat</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
-      <ul class="navbar-nav mb-2 mb-lg-0 align-items-center gap-3">
-        <li class="nav-item"><a class="nav-link" href="{% url 'room' %}">Rooms</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'dinish' %}">Dining</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'spa' %}">Spa</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'event' %}">Events</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">contact</a></li>
-
-        {% if user.is_authenticated %}
-          <!-- Profile Dropdown -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-person-circle fs-5 me-1"></i> {{ user.username }}
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-              <li><a class="dropdown-item" href="{% url 'profile' %}"><i class="bi bi-person"></i> Profile</a></li>
-              <li><a class="dropdown-item" href="{% url 'notifications' %}"><i class="bi bi-bell"></i> Notifications</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item text-danger" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
-            </ul>
-          </li>
-        {% else %}
-          <!-- Show Login & Register if not authenticated -->
-          <li class="nav-item">
-            <a class="btn btn-outline-primary btn-sm rounded-pill px-3" href="{% url 'login' %}">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="btn btn-gold btn-sm rounded-pill px-3" href="{% url 'register' %}">Register</a>
-          </li>
-        {% endif %}
-      </ul>
+{% if user.is_authenticated and user.is_staff %}
+    <!-- Admin Header -->
+    <header class="navbar navbar-expand-lg bg-white shadow-sm px-4 py-3">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-3">
+                <div class="text-warning">
+                    <!-- SVG logo here -->
+                </div>
+                <h2 class="h5 mb-0 fw-bold text-dark">The Grand Retreat Admin</h2>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <a href="{% url 'AdminNotification' %}" class="btn btn-light rounded-circle p-2" title="Notifications">
+                    <i class="bi bi-bell"></i>
+                </a>
+                
+                <div class="dropdown ">
+                    <div class="sidebar-avatar dropdown-toggle" data-bs-toggle="dropdown"
+                         style="background-image: url('{% if profile.profile_picture %}{{ profile.profile_picture.url }}{% else %}https://ui-avatars.com/api/?name={{ user.get_full_name|default:user.username }}&background=d4af37&color=fff{% endif %}');">
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="{% url 'admin_profile' %}"><i class="bi bi-gear"></i> Profile</a></li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="d-flex flex-grow-1">
+        <!-- Admin Sidebar -->
+        <aside class="bg-white border-end p-3" style="width: 260px;" role="navigation">
+            <div class="text-center mb-4">
+    <div class="sidebar-avatar sidebar-avatar-lg mx-auto mb-2"
+        style="background-image: url('{% if profile.profile_picture %}{{ profile.profile_picture.url }}{% else %}https://ui-avatars.com/api/?name={{ user.get_full_name|default:user.username }}&background=d4af37&color=fff{% endif %}');">
     </div>
-  </div>
-</nav>
+    <h5 class="mb-0 fw-semibold">{{ user.get_full_name|default:user.username }}</h5>
+    <p class="text-muted small mb-0">Admin</p>
+</div>
+            <nav class="nav flex-column">
+                <a class="nav-link text-dark d-flex align-items-center gap-2" href="{% url 'AdminDashboard' %}"><i class="bi bi-house-door"></i> Dashboard</a>
+                <a class="nav-link text-dark d-flex align-items-center gap-2" href="{% url 'AdminBooking' %}"><i class="bi bi-calendar-check"></i> Bookings</a>
+                <a class="nav-link text-dark d-flex align-items-center gap-2" href="{% url 'adminRoom' %}"><i class="bi bi-door-open"></i> Rooms</a>
+                <a class="nav-link text-dark d-flex align-items-center gap-2" href="{% url 'adminEvent' %}"><i class="bi bi-calendar-event"></i> Events</a>
+                <a class="nav-link text-dark d-flex align-items-center gap-2" href="{% url 'AdminNotification' %}"><i class="bi bi-bell"></i> Notification</a>
+                <a class="nav-link text-dark d-flex align-items-center gap-2" href="{% url 'admin_profile' %}"><i class="bi bi-gear"></i> Profile </a>
+                <a class="nav-link text-dark d-flex align-items-center gap-2" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a>
+               
+            </nav>
+        </aside>
+        <!-- Main Content for Admin -->
+        <main class="flex-grow-1 p-3">
+            {% block main %}{% endblock %}
+        </main>
+    </div>
 
+    {% else %}
+    <!-- User Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top py-3">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'home' %}">The Grand Retreat</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
+          <ul class="navbar-nav mb-2 mb-lg-0 align-items-center gap-3">
+            <li class="nav-item"><a class="nav-link" href="{% url 'room' %}">Rooms</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'dinish' %}">Dining</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'spa' %}">Spa</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'event' %}">Events</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">contact</a></li>
+            {% if user.is_authenticated %}
+              <!-- Profile Dropdown -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-person-circle fs-5 me-1"></i> {{ user.username }}
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                  <li><a class="dropdown-item" href="{% url 'profile' %}"><i class="bi bi-person"></i> Profile</a></li>
+                  <li><a class="dropdown-item" href="{% url 'notifications' %}"><i class="bi bi-bell"></i> Notifications</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item text-danger" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                </ul>
+              </li>
+            {% else %}
+              <!-- Show Login & Register if not authenticated -->
+              <li class="nav-item">
+                <a class="btn btn-outline-primary btn-sm rounded-pill px-3" href="{% url 'login' %}">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="btn btn-gold btn-sm rounded-pill px-3" href="{% url 'register' %}">Register</a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+  
 
       
     <!-- Page Content -->
     {% block content %}
     
     {% endblock %}
-
+{% endif %}
     <!-- Footer -->
     <footer class="py-5 text-light" style="background: #403f3f;">
       <div class="container">

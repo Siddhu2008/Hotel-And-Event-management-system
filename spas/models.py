@@ -5,7 +5,7 @@ class SpaService(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    
+    duration_in_minutes = models.PositiveIntegerField(default=60)  # e.g., 60 for 1 hour
     def __str__(self):
         return self.name
 

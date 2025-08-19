@@ -1,94 +1,137 @@
 {% extends 'base.html' %}
-
 {% block title %}Events | The Grand Retreat{% endblock %}
 
 {% block content %}
 <style>
-   body { font-family: 'Open Sans', sans-serif; background-color: #f8f9fa; }
-  h1, h2, h3 { font-family: 'Playfair Display', serif; }
-
-
+  body { font-family: 'Open Sans', sans-serif; background-color: #f8f9fa; }
+  h1 { font-family: 'Playfair Display', serif; }
   .hero-section {
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-    url('https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2014/09/21/1702/ASPAC-P022-Cocktail-Party.jpg/ASPAC-P022-Cocktail-Party.16x9.jpg?imwidth=1920') center/cover no-repeat;
+    url('https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg') center/cover no-repeat;
     color: #fff; padding: 100px 20px; text-align: center;
   }
 
-  .event-card img { height: 230px; object-fit: cover; border-radius: 15px 15px 0 0; }
-  .event-card { cursor: pointer; transition: transform 0.3s ease; border-radius: 15px 15px 0 0;}
-  .event-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
-  .btn-gold { background-color: #d4af37; color: #000; border-radius: 50px; font-weight: 600; }
+  .btn-gold { background-color: #d4af37; color: #000; font-weight: 600; border-radius: 50px; }
   .btn-gold:hover { background-color: #b9982e; color: #fff; }
-  .modal-content { background-color: #1c1c1c; border-radius: 10px; color: white; }
-  .form-control { background-color: #2c2c2c; border: 1px solid #555; color: #fff; }
-  .form-control:focus { border-color: #d4af37; box-shadow: none; }
-  .details{
-    color: rgb(28, 49, 107);
-  }
-</style>
 
-<!-- Hero Section -->
- <section class="hero-section">
-  <div class="container">
+  .event-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+  .btn-gold { background-color: #d4af37; color: #000; }
+  .btn-gold:hover { background-color: #b9982e; color: #fff; }
+  /* Fix visibility of dropdowns inside dark modal */
+.modal select.form-control.bg-secondary,
+.modal input.form-control.bg-secondary,
+.modal textarea.form-control.bg-secondary {
+  background-color: #f0f0f0 !important;
+  color: #000 !important;
+  border: 1px solid #ccc;
+}
+
+.modal select.form-control.bg-secondary option {
+  background-color: #fff;
+  color: #000 !important;
+}
+.datedisplay{
+  color: #000 !important;
+}
+
+</style>
+<div id="modalMessages">
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+  {% endfor %}
+</div>
+<section class="hero-section">
+  <div class="container text-center text-white py-5">
     <h1 class="display-5 fw-bold">Host Your Event in Style</h1>
-    <p class="lead">Select your event below and book with ease</p>
+    <p class="lead">Select an event and book seamlessly</p>
   </div>
 </section>
 
-<!-- Event Cards -->
 <section class="container py-5">
   <div class="row g-4">
+    {% now "Y-m-d" as today_date %}
     {% for event in events %}
-    <div class="col-md-4">
-      <div class="card event-card" 
-           data-bs-toggle="modal" 
-           data-bs-target="#bookingModal"
-           data-event-id="{{ event.id }}"
-           data-event-name="{{ event.name }}"
-           data-event-date="{{ event.date }}"
-           data-event-time="{{ event.time }}"
-           data-event-price="{{ event.price }}">
-        {% if event.image %}
-          <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.name }}">
-        {% endif %}
-        <div class="card-body">
-          <h5 class="card-title">{{ event.name }}</h5>
-          <p class="card-text text-muted">{{ event.description }}</p>
-          <p class="details">Date: {{ event.date }} | Time: {{ event.time }} | ₹{{ event.price }}</p>
+      {% if event.bookings_today >= event.capacity %}
+        <div class="col-md-4">
+          <div class="card text-center border-secondary p-4">
+            <h5>{{ event.name }}</h5>
+            <p class="text-danger">This event is fully booked today</p>
+          </div>
         </div>
-      </div>
-    </div>
+      {% else %}
+        <div class="col-md-4">
+          <div class="card event-card" data-bs-toggle="modal" data-bs-target="#bookingModal"
+               data-event-id="{{ event.id }}" data-event-name="{{ event.name }}"
+               data-price-per-guest="{{ event.price_per_guest }}">
+            {% if event.image %}
+              <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.name }}">
+            {% else %}
+              <img src="https://via.placeholder.com/350x230?text=No+Image" class="card-img-top" alt="No image">
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">{{ event.name }}</h5>
+              <p class="card-text">{{ event.description|truncatechars:80 }}</p>
+              <p class="text-muted">Price per guest: ₹{{ event.price_per_guest }}</p>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% empty %}
+      <p class="text-center">No events available currently. Check back later.</p>
     {% endfor %}
   </div>
 </section>
 
 <!-- Booking Modal -->
-<div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+<div class="modal fade" id="bookingModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content p-4">
+    <div class="modal-content bg-dark text-white p-4">
       <div class="modal-header border-0">
-        <h5 class="modal-title" id="bookingModalLabel">Book Event</h5>
+        <h5 class="modal-title">Reserve Event</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
       <form method="POST">
         {% csrf_token %}
         <div class="modal-body">
-          <input type="hidden" name="event_id" id="event_id">
+          
+          <input type="hidden" name="event_id" id="eventIdInput">
+
           <div class="mb-3">
-            <label class="form-label">Event Name</label>
-            <input type="text" id="event_name_display" class="form-control" readonly>
+            <label class="form-label">Event</label>
+            <input type="text" class="form-control bg-secondary" id="eventNameInput" readonly>
           </div>
+
           <div class="mb-3">
-            <label class="form-label">Event Date & Time</label>
-            <input type="text" id="event_datetime_display" class="form-control" readonly>
+            <label class="form-label">Select Date</label>
+            <select name="booking_date" id="bookingDateSelect" class="form-control bg-secondary" required>
+  <option value="">Choose a date</option>
+  {% for date in available_dates %}
+    <option value="{{ date|date:'Y-m-d' }}">{{ date|date:"D, M d, Y" }}</option>
+  {% endfor %}
+</select>
+
           </div>
+
+          <div class="mb-3" id="timeslotContainer" style="display:none;">
+            <label class="form-label">Available Time Slots</label>
+            <select name="booking_time" id="bookingTimeSelect" class="form-control bg-secondary" required>
+              <option value="">Choose a time</option>
+            </select>
+          </div>
+
           <div class="mb-3">
-            <label class="form-label">Number of Guests</label>
-            <input type="number" name="guests" class="form-control" min="1" required>
+            <label class="form-label">Guests</label>
+            <input type="number" name="guests" id="guestsInput" class="form-control bg-secondary" min="1" required>
           </div>
+
+          <div class="mb-3">
+            <label class="form-label">Total Price</label>
+            <input type="text" id="totalPriceInput" class="form-control bg-secondary" readonly>
+          </div>
+
           <div class="mb-3">
             <label class="form-label">Additional Notes</label>
-            <textarea name="notes" class="form-control" rows="3" placeholder="Optional details..."></textarea>
+            <textarea name="notes" class="form-control bg-secondary" rows="3" placeholder="Optional..."></textarea>
           </div>
         </div>
         <div class="modal-footer border-0">
@@ -100,17 +143,67 @@
 </div>
 
 <script>
-  var bookingModal = document.getElementById('bookingModal');
-  bookingModal.addEventListener('show.bs.modal', function (event) {
-    var button = event.relatedTarget;
-    var eventId = button.getAttribute('data-event-id');
-    var eventName = button.getAttribute('data-event-name');
-    var eventDate = button.getAttribute('data-event-date');
-    var eventTime = button.getAttribute('data-event-time');
+// Store current price per guest for calculation
+let currentPricePerGuest = 0;
 
-    document.getElementById('event_id').value = eventId;
-    document.getElementById('event_name_display').value = eventName;
-    document.getElementById('event_datetime_display').value = eventDate + " | " + eventTime;
+const bookingModal = document.getElementById('bookingModal');
+if (bookingModal) {
+  bookingModal.addEventListener('show.bs.modal', function(event) {
+    const btn = event.relatedTarget;
+    const evtId = btn.getAttribute('data-event-id');
+    const evtName = btn.getAttribute('data-event-name');
+    currentPricePerGuest = parseFloat(btn.getAttribute('data-price-per-guest')) || 0;
+
+    document.getElementById('eventIdInput').value = evtId;
+    document.getElementById('eventNameInput').value = evtName;
+    document.getElementById('guestsInput').value = '';
+    document.getElementById('totalPriceInput').value = '';
+    document.getElementById('bookingDateSelect').value = '';
+    document.getElementById('timeslotContainer').style.display = 'none';
+    document.getElementById('bookingTimeSelect').innerHTML = '<option value="">Choose a time</option>';
   });
+}
+
+// Fetch slots when date changes
+document.getElementById('bookingDateSelect')?.addEventListener('change', function() {
+  const eventId = document.getElementById('eventIdInput').value;
+  const date = this.value;
+  const timeslotSelect = document.getElementById('bookingTimeSelect');
+
+  if (!date) {
+    timeslotSelect.innerHTML = '<option value="">Choose a time</option>';
+    document.getElementById('timeslotContainer').style.display = 'none';
+    return;
+  }
+
+  fetch("{% url 'get_available_slots' %}?event_id=" + eventId + "&date=" + date)
+    .then(res => res.json())
+    .then(data => {
+      timeslotSelect.innerHTML = '<option value="">Choose a time</option>';
+      if (data.slots && data.slots.length) {
+        data.slots.forEach(slot => {
+          const opt = new Option(slot, slot);
+          timeslotSelect.add(opt);
+        });
+        document.getElementById('timeslotContainer').style.display = 'block';
+      } else {
+        timeslotSelect.innerHTML = '<option value="">No slots available</option>';
+        document.getElementById('timeslotContainer').style.display = 'block';
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching slots:', error);
+      timeslotSelect.innerHTML = '<option value="">Error loading slots</option>';
+      document.getElementById('timeslotContainer').style.display = 'block';
+    });
+});
+
+// Update total price dynamically when guest count changes
+document.getElementById('guestsInput')?.addEventListener('input', function() {
+  const count = parseInt(this.value) || 0;
+  document.getElementById('totalPriceInput').value = count && currentPricePerGuest
+    ? `₹${(count * currentPricePerGuest).toFixed(2)}`
+    : '';
+});
 </script>
 {% endblock %}

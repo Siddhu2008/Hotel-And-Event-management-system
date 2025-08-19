@@ -1,9 +1,10 @@
 from django.shortcuts import render
+from .models import AdminStats
 
-# Create your views here.
 def AdminDashboard(request):
-    return render(request, 'AdminDashboard.html')
+    # Get the latest stats entry
+    stats = AdminStats.objects.order_by('-date_generated').first()
+    return render(request, 'AdminDashboard.html', {'stats': stats})
 
-def UserDashboard(request):
-    return render(request, 'UserDashboard.html')
-
+def AdminBooking(request):
+    return render(request, 'AdminBooking.html')

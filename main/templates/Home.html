@@ -166,7 +166,7 @@
     <h2 class="section-title">Our Events</h2>
     <div class="row g-4">
       {% for event in events %}
-      <a href="{% url 'event_detail' event.id %}" class="col-md-4 text-decoration-none text-dark" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'1' }}00">
+      <a href="{% url 'event' %}" class="col-md-4 text-decoration-none text-dark" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'1' }}00">
         <div class="card border-0 shadow-sm">
           <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.name }}" height="200px">
           <div class="card-body">

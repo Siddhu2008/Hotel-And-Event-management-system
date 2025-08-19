@@ -7,7 +7,6 @@
   body { font-family: 'Open Sans', sans-serif; background-color: #f8f9fa; }
   h1, h2, h3 { font-family: 'Playfair Display', serif; }
 
-
   .hero-section {
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
     url('https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg') center/cover no-repeat;
@@ -26,6 +25,18 @@
   .form-control { background-color: #2c2c2c; border: 1px solid #555; color: #fff; }
   .form-control:focus { border-color: #d4af37; box-shadow: none; }
 </style>
+
+<!-- Messages -->
+{% if messages %}
+  <div class="container mt-3">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
 
 <!-- Hero Section -->
 <section class="hero-section">
@@ -48,15 +59,16 @@
           <h5 class="card-title">{{ room.room_type }} (Room {{ room.room_number }})</h5>
           <p class="card-text text-muted">₹{{ room.price_per_night }}/night</p>
           {% if room.is_available %}
-          <div class="gap-3">
-            <span class="badge bg-success mb-2 ">Available</span>
-            <a href="{% url 'room_detail' room.id %}" class="text-decoration-none " style="float: right;"> view details</a>
+            <div class="gap-3">
+              <span class="badge bg-success mb-2">Available</span>
+              <a href="{% url 'room_detail' room.id %}" class="text-decoration-none" style="float: right;">View details</a>
             </div>
-            <button class="btn btn-gold w-100 book-btn" 
-                    data-bs-toggle="modal" 
+            <button class="btn btn-gold w-100 book-btn"
+                    data-bs-toggle="modal"
                     data-bs-target="#bookingModal"
                     data-room="{{ room.id }}"
-                    data-room-number="{{ room.room_number }}">
+                    data-room-number="{{ room.room_number }}"
+                    data-price="{{ room.price_per_night }}">
               Book Now
             </button>
           {% else %}
@@ -81,7 +93,6 @@
       <div class="modal-body">
         <form method="POST" action="">
           {% csrf_token %}
-          <!-- Hidden field to store selected room id -->
           <input type="hidden" name="room" id="room_id" />
 
           <div class="mb-3">
@@ -92,12 +103,16 @@
           <div class="row mb-3">
             <div class="col">
               <label class="form-label">Check-in</label>
-              <input type="date" name="check_in" class="form-control" required />
+             <select name="check_in" class="form-control" id="check_in" required></select>
             </div>
             <div class="col">
               <label class="form-label">Check-out</label>
-              <input type="date" name="check_out" class="form-control" required />
+              <select name="check_out" class="form-control" id="check_out" required></select>
             </div>
+          </div>
+
+          <div id="priceEstimate" class="text-end text-white mb-2" style="display:none;">
+            Estimated Price: ₹<span id="estimatedPrice">0</span>
           </div>
 
           <button type="submit" class="btn btn-gold w-100">Confirm Booking</button>
@@ -107,16 +122,73 @@
   </div>
 </div>
 
-<!-- Script to fill modal with selected room -->
+<!-- JavaScript -->
 <script>
-  document.querySelectorAll('.book-btn').forEach(button => {
-    button.addEventListener('click', function() {
-      const roomId = this.dataset.room;
-      const roomNumber = this.dataset.roomNumber;
+  const bookingButtons = document.querySelectorAll('.book-btn');
+  const roomIdInput = document.getElementById('room_id');
+  const roomNumberInput = document.getElementById('room_number_display');
+  const estimatedPriceElement = document.getElementById('estimatedPrice');
+  const priceEstimateContainer = document.getElementById('priceEstimate');
+  const checkInSelect = document.getElementById('check_in');
+  const checkOutSelect = document.getElementById('check_out');
 
-      document.getElementById('room_id').value = roomId;
-      document.getElementById('room_number_display').value = roomNumber;
+  function formatDate(date) {
+    return date.toISOString().split('T')[0];
+  }
+
+  function populateDateSelectors() {
+    const today = new Date();
+    const maxDays = 60;
+
+    // Clear previous options
+    checkInSelect.innerHTML = '';
+    checkOutSelect.innerHTML = '';
+
+    for (let i = 0; i <= maxDays; i++) {
+      const date = new Date(today);
+      date.setDate(today.getDate() + i);
+
+      const option = document.createElement('option');
+      option.value = formatDate(date);
+      option.textContent = date.toDateString();
+
+      checkInSelect.appendChild(option.cloneNode(true));
+      checkOutSelect.appendChild(option);
+    }
+
+    // Set default selection
+    checkInSelect.selectedIndex = 0;
+    checkOutSelect.selectedIndex = 1;
+  }
+
+  bookingButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      roomIdInput.value = this.dataset.room;
+      roomIdInput.setAttribute('data-price', this.dataset.price);
+      roomNumberInput.value = this.dataset.roomNumber;
+      estimatedPriceElement.textContent = '0';
+      priceEstimateContainer.style.display = 'none';
+      populateDateSelectors();
     });
   });
+
+  function updatePrice() {
+    const checkInDate = new Date(checkInSelect.value);
+    const checkOutDate = new Date(checkOutSelect.value);
+    const pricePerNight = parseFloat(roomIdInput.getAttribute('data-price'));
+
+    if (checkInDate && checkOutDate && checkOutDate > checkInDate && pricePerNight) {
+      const nights = Math.floor((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+      const total = nights * pricePerNight;
+      estimatedPriceElement.textContent = total;
+      priceEstimateContainer.style.display = 'block';
+    } else {
+      priceEstimateContainer.style.display = 'none';
+    }
+  }
+
+  checkInSelect.addEventListener('change', updatePrice);
+  checkOutSelect.addEventListener('change', updatePrice);
 </script>
+
 {% endblock %}

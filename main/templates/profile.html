@@ -1,99 +1,39 @@
 {% extends 'base.html' %}
 
-{% block title %}Profile | The Grand Retreat{% endblock %}
+{% block title %}Admin Profile | The Grand Retreat{% endblock %}
 
 {% block content %}
-<style>
-  .profile-card {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    padding: 30px;
-    margin-top: 40px;
-  }
-  .profile-picture {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid #007bff;
-  }
-  .profile-info p {
-    margin-bottom: 5px;
-  }
-  .profile-info .label {
-    color: #6c757d;
-    font-weight: 500;
-  }
-  .profile-info .value {
-    color: #343a40;
-    font-weight: 600;
-  }
-</style>
-
-<div class="container">
-  <div class="profile-card mx-auto">
-
-    <!-- Profile Header -->
-    <div class="row align-items-center mb-4">
-      <div class="col-md-3 text-center">
-        <img src="{% if profile and profile.profile_picture %}{{ profile.profile_picture.url }}{% else %}https://via.placeholder.com/150{% endif %}" 
-             alt="Profile Picture" class="profile-picture">
-      </div>
-      <div class="col-md-9 text-center text-md-start">
-        <h2 class="fw-bold">{{ user.get_full_name }}</h2>
-        <p class="text-secondary">{{ user.email }}</p>
-        {% if profile %}
-          {% if profile.phone %}<p class="text-secondary">{{ profile.phone }}</p>{% endif %}
-          {% if profile.address %}<p class="text-secondary">{{ profile.address }}</p>{% endif %}
-        {% endif %}
-        <!-- Edit Button triggers modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">
-          Edit Profile
-        </button>
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+      <div class="card profile-card shadow-sm border-0 p-4">
+        <div class="d-flex align-items-center gap-4 mb-4">
+          <div class="text-center mb-4">
+    <div class="sidebar-avatar sidebar-avatar-lg mx-auto mb-2"
+        style="background-image: url('{% if profile.profile_picture %}{{ profile.profile_picture.url }}{% else %}https://ui-avatars.com/api/?name={{ user.get_full_name|default:user.username }}&background=d4af37&color=fff{% endif %}');">
+    </div>
+    <h5 class="mb-0 fw-semibold">{{ user.get_full_name|default:user.username }}</h5>
+    <p class="text-muted small mb-0">Admin</p>
+</div>
+        <hr>
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Username</label>
+          <div class="form-control-plaintext">{{ user.username }}</div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Email</label>
+          <div class="form-control-plaintext">{{ user.email }}</div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Date Joined</label>
+          <div class="form-control-plaintext">{{ user.date_joined|date:"M d, Y" }}</div>
+        </div>
+        <div class="d-flex gap-2 mt-4">
+          <a href="" class="btn btn-gold px-4" data-bs-toggle="modal" data-bs-target="#editProfileModal"><i class="bi bi-pencil me-1"></i> Edit Profile</a>
+          <a href="{% url 'logout' %}" class="btn btn-outline-danger px-4"><i class="bi bi-box-arrow-right me-1"></i> Logout</a>
+        </div>
       </div>
     </div>
-
-    <!-- Profile Details -->
-    <div class="row g-3 profile-info">
-      {% if user.get_full_name %}
-      <div class="col-md-6">
-        <p class="label">Full Name</p>
-        <p class="value">{{ user.get_full_name }}</p>
-      </div>
-      {% endif %}
-      {% if user.email %}
-      <div class="col-md-6">
-        <p class="label">Email</p>
-        <p class="value">{{ user.email }}</p>
-      </div>
-      {% endif %}
-      {% if profile and profile.phone %}
-      <div class="col-md-6">
-        <p class="label">Phone Number</p>
-        <p class="value">{{ profile.phone }}</p>
-      </div>
-      {% endif %}
-      {% if profile and profile.address %}
-      <div class="col-md-6">
-        <p class="label">Address</p>
-        <p class="value">{{ profile.address }}</p>
-      </div>
-      {% endif %}
-      {% if profile and profile.account_type %}
-      <div class="col-md-6">
-        <p class="label">Account Type</p>
-        <p class="value">{{ profile.account_type }}</p>
-      </div>
-      {% endif %}
-      {% if profile and profile.member_since %}
-      <div class="col-md-6">
-        <p class="label">Member Since</p>
-        <p class="value">{{ profile.member_since|date:"M Y" }}</p>
-      </div>
-      {% endif %}
-    </div>
-
   </div>
 </div>
 
@@ -149,4 +89,26 @@
   </div>
 </div>
 
+<style>
+.profile-card {
+    background: #fff;
+    border-radius: 1.5rem;
+    box-shadow: 0 2px 16px rgba(44,62,80,0.08);
+    padding: 2rem 2.5rem;
+    max-width: 600px;
+    margin: 2rem auto;
+    transition: box-shadow 0.2s;
+}
+.profile-card:hover {
+    box-shadow: 0 4px 24px rgba(44,62,80,0.12);
+}
+.sidebar-avatar-lg {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid #d4af37;
+}
+</style>
 {% endblock %}

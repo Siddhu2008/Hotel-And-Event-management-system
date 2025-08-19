@@ -1,10 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
-def AdminNotification(request):
-    return render(request, 'AdminNotification.html')
-
-from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Notification
 
@@ -15,3 +10,10 @@ def notifications(request):
     user_notifications = Notification.objects.filter(sent_to=user).order_by('-created_at')
 
     return render(request, 'notifications.html', {'notifications': user_notifications})
+
+@login_required
+def AdminNotification(request):
+    # Get notifications for the logged-in admin user
+    user = request.user
+    notifications = Notification.objects.filter(sent_to=user).order_by('-created_at')
+    return render(request, 'AdminNotification.html', {'notifications': notifications})

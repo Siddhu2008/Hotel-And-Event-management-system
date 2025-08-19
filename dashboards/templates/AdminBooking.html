@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Bookings | The Grand Retreat{% endblock %}
+
+{% block main %}
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="fw-bold mb-0">Bookings Management</h3>
+    <a href="#" class="btn btn-gold"><i class="bi bi-plus-circle me-1"></i> Add Booking</a>
+  </div>
+  <div class="card shadow-sm border-0">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <th>Guest Name</th>
+              <th>Room</th>
+              <th>Check-In</th>
+              <th>Check-Out</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Example static rows, replace with dynamic data -->
+            <tr>
+              <td>1</td>
+              <td>John Doe</td>
+              <td>Deluxe Suite</td>
+              <td>2024-08-15</td>
+              <td>2024-08-18</td>
+              <td><span class="badge bg-success">Checked In</span></td>
+              <td>
+                <a href="#" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                <a href="#" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jane Smith</td>
+              <td>Executive Room</td>
+              <td>2024-08-16</td>
+              <td>2024-08-20</td>
+              <td><span class="badge bg-warning text-dark">Upcoming</span></td>
+              <td>
+                <a href="#" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                <a href="#" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+              </td>
+            </tr>
+            <!-- End example rows -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
